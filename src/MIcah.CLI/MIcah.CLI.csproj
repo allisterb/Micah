@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>f3ed0dc7-f978-44ae-8add-9e5bfcf8fa8a</UserSecretsId>
+    <RootNamespace>Micah.CLI</RootNamespace>
+    <AssemblyName>Micah.CLI</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Micah.Base\Micah.Base.csproj" />
+    <ProjectReference Include="..\Micah.Logger.Serilog\Micah.Logger.Serilog.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.9" />
+    <PackageReference Include="CommandLineParser" Version="2.6.0" />
+    <PackageReference Include="Figgle" Version="0.3.0" />
+  </ItemGroup>
+
+</Project>

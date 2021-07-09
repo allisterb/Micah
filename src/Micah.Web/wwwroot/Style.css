@@ -1,0 +1,44 @@
+﻿.terminal {
+    --color: #40AADD;
+    --background: white;
+    --size: 2
+}
+
+#microphone {
+    width: unset;
+}
+
+.mic {
+    width: 120px;
+}
+
+.mic-box {
+    width: 120px
+}
+
+.invisible {
+    display: none !important
+}
+/*
+    font-size: unset;
+    line-height: unset
+.mic-box {
+    border: inherit
+}
+
+.wit-microphone {
+    height: unset;
+    width: 30px;
+}
+*/
+
+.swal2-popup {
+    width: unset
+}
+
+
+@media (max-width: 479px) {
+    .terminal {
+        --size: 1
+    }
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>f3ed0dc7-f978-44ae-8add-9e5bfcf8fa8a</UserSecretsId>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ClientExtensions.fs" />
+    <Compile Include="Authentication.fs" />
+    <Compile Include="Bootstrap.fs" />
+    <Compile Include="Witai.fs" />
+    <Compile Include="BabelNet.fs" />
+    <Compile Include="NLG.fs" />
+    <Compile Include="NLU.fs" />
+    <Compile Include="Knowledge.fs" />
+    <Compile Include="CUI.fs" />
+    <Compile Include="Server.fs" />
+    <Compile Include="Dialogue.fs" />
+    <Compile Include="Questions.fs" />
+    <Compile Include="Journal.fs" />
+    <Compile Include="User.fs" />
+    <Compile Include="Symptoms.fs" />
+    <Compile Include="Main.fs" />
+    <Compile Include="Client.fs" />
+    <Compile Include="Site.fs" />
+    <Compile Include="Startup.fs" />
+    <Content Update="wwwroot\Main.html" CopyToPublishDirectory="Always" />
+    <Content Update="wwwroot\Style.css" CopyToPublishDirectory="Always" />
+    <Content Update="wwwroot\microphone\css\microphone.min.css" CopyToPublishDirectory="Always" />
+    <Content Update="wwwroot\microphone\js\*.*" CopyToPublishDirectory="Always" />
+    <Content Update="wwwroot\microphone\fonts\*.*" CopyToPublishDirectory="Always" />
+    <None Include="wsconfig.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BrightstarDBLibs" Version="1.14.0-alpha0003" />
+    <PackageReference Include="Humanizer.Core" Version="2.11.10" />
+    <PackageReference Include="Markdig" Version="0.22.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.6.0-preview.1" />
+    <PackageReference Include="Microsoft.CognitiveServices.Speech" Version="1.14.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Npgsql.FSharp" Version="3.7.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="WebSharper" Version="4.6.7.408" />
+    <PackageReference Include="WebSharper.FSharp" Version="4.6.7.408" />
+    <PackageReference Include="WebSharper.UI" Version="4.6.3.219" />
+    <PackageReference Include="WebSharper.AspNetCore" Version="4.6.2.136" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Micah.Base.Fs\Micah.Base.Fs.fsproj" />
+    <ProjectReference Include="..\Micah.Base\Micah.Base.csproj" />
+    <ProjectReference Include="..\Micah.Core\Micah.Core.fsproj" />
+    <ProjectReference Include="..\Micah.Logger.Serilog\Micah.Logger.Serilog.csproj" />
+    <ProjectReference Include="..\Micah.NLU.ExpertAI\Micah.NLU.ExpertAI.csproj" />
+    <ProjectReference Include="..\Micah.NLU.GoogleHC\Micah.NLU.GoogleHC.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="SMApp.BotLibre">
+      <HintPath>..\..\..\SMApp\ext\SMApp.BotLibre\bin\Debug\netstandard2.0\SMApp.BotLibre.dll</HintPath>
+    </Reference>
+    <Reference Include="SMApp.Compromise">
+      <HintPath>..\..\..\SMApp\ext\SMApp.Compromise\bin\Debug\netstandard2.0\SMApp.Compromise.dll</HintPath>
+    </Reference>
+    <Reference Include="SMApp.JQueryTerminal">
+      <HintPath>..\..\..\SMApp\ext\SMApp.JQueryTerminal\bin\Debug\netstandard2.0\SMApp.JQueryTerminal.dll</HintPath>
+    </Reference>
+    <Reference Include="SMApp.Microphone">
+      <HintPath>..\..\..\SMApp\ext\SMApp.Microphone\bin\Debug\netstandard2.0\SMApp.Microphone.dll</HintPath>
+    </Reference>
+    <Reference Include="SMApp.TypingDNA">
+      <HintPath>..\..\..\SMApp\ext\SMApp.TypingDNA\bin\Debug\netstandard2.0\SMApp.TypingDNA.dll</HintPath>
+    </Reference>
+    <Reference Include="SMApp.WebSpeech">
+      <HintPath>..\..\..\SMApp\ext\SMApp.WebSpeech\bin\Debug\netstandard2.0\SMApp.WebSpeech.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSharper.SweetAlert">
+      <HintPath>..\..\..\SMApp\ext\sweetalert\WebSharper.SweetAlert\bin\Debug\netstandard2.0\WebSharper.SweetAlert.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>

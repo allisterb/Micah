@@ -1,0 +1,111 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Base", "Base", "{3C4B3264-7365-467A-8A4B-7AA03F4C2BD4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micah.Base", "Micah.Base\Micah.Base.csproj", "{8FBB9CE8-07F6-4296-924E-B5507862CA08}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Micah.Base.Fs", "Micah.Base.Fs\Micah.Base.Fs.fsproj", "{A92642C2-06D3-4291-BEB3-CF8E5ACBC30A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NLU", "NLU", "{A10FA8E0-2CD2-48C0-BA36-F6AB6F629B1C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micah.NLU.ExpertAI", "Micah.NLU.ExpertAI\Micah.NLU.ExpertAI.csproj", "{2E415187-756C-4EBB-8B26-31767614A7DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micah.NLU.GoogleHC", "Micah.NLU.GoogleHC\Micah.NLU.GoogleHC.csproj", "{92040841-C717-4A3C-BB90-585A163F00F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App", "App", "{D0D5E03C-5518-45EE-8707-1A65A0FEB1A8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micah.Logger.Serilog", "Micah.Logger.Serilog\Micah.Logger.Serilog.csproj", "{3E72B161-825A-414A-A863-3464D51401BD}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Micah.Core", "Micah.Core\Micah.Core.fsproj", "{B4F452E7-2AE5-409D-B89E-4B1D6CF9E031}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FHIR", "FHIR", "{81133964-BE38-42CA-8CAA-ED113920AC26}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deploy", "Deploy", "{CAC43818-3DC7-4FC8-B6E5-0BFEA412B1BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Micah.FHIR", "Micah.FHIR\Micah.FHIR.csproj", "{BA23E0F1-3329-43AF-83FF-18174224612E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SHELL", "SHELL", "{509D2DF3-0815-4D0E-8BB8-46F263168817}"
+	ProjectSection(SolutionItems) = preProject
+		..\deploy\oc-create-app.cmd = ..\deploy\oc-create-app.cmd
+		..\deploy\oc-deploy-build.cmd = ..\deploy\oc-deploy-build.cmd
+		..\deploy\oc-pgdb-port-forward.cmd = ..\deploy\oc-pgdb-port-forward.cmd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{23088194-177E-4BFB-81EB-129D396B622F}"
+	ProjectSection(SolutionItems) = preProject
+		..\deploy\SQL\DDL_CREATE_DB_micah.sql = ..\deploy\SQL\DDL_CREATE_DB_micah.sql
+		..\deploy\SQL\DDL_CREATE_TABLE_micah.messages.sql = ..\deploy\SQL\DDL_CREATE_TABLE_micah.messages.sql
+		..\deploy\SQL\DDL_CREATE_TABLE_micah_user.sql = ..\deploy\SQL\DDL_CREATE_TABLE_micah_user.sql
+		..\deploy\SQL\DDL_CREATE_USER_micah.sql = ..\deploy\SQL\DDL_CREATE_USER_micah.sql
+	EndProjectSection
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Micah.Web", "Micah.Web\Micah.Web.fsproj", "{3691E9B4-E986-4C25-8AAA-A24721E5BB9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIcah.CLI", "MIcah.CLI\MIcah.CLI.csproj", "{5B63FCB3-0113-4A24-A387-7740AEA31149}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8FBB9CE8-07F6-4296-924E-B5507862CA08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FBB9CE8-07F6-4296-924E-B5507862CA08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FBB9CE8-07F6-4296-924E-B5507862CA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FBB9CE8-07F6-4296-924E-B5507862CA08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A92642C2-06D3-4291-BEB3-CF8E5ACBC30A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A92642C2-06D3-4291-BEB3-CF8E5ACBC30A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A92642C2-06D3-4291-BEB3-CF8E5ACBC30A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A92642C2-06D3-4291-BEB3-CF8E5ACBC30A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E415187-756C-4EBB-8B26-31767614A7DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E415187-756C-4EBB-8B26-31767614A7DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E415187-756C-4EBB-8B26-31767614A7DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E415187-756C-4EBB-8B26-31767614A7DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92040841-C717-4A3C-BB90-585A163F00F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92040841-C717-4A3C-BB90-585A163F00F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92040841-C717-4A3C-BB90-585A163F00F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92040841-C717-4A3C-BB90-585A163F00F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E72B161-825A-414A-A863-3464D51401BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E72B161-825A-414A-A863-3464D51401BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E72B161-825A-414A-A863-3464D51401BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E72B161-825A-414A-A863-3464D51401BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4F452E7-2AE5-409D-B89E-4B1D6CF9E031}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4F452E7-2AE5-409D-B89E-4B1D6CF9E031}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4F452E7-2AE5-409D-B89E-4B1D6CF9E031}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4F452E7-2AE5-409D-B89E-4B1D6CF9E031}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA23E0F1-3329-43AF-83FF-18174224612E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA23E0F1-3329-43AF-83FF-18174224612E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA23E0F1-3329-43AF-83FF-18174224612E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA23E0F1-3329-43AF-83FF-18174224612E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3691E9B4-E986-4C25-8AAA-A24721E5BB9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3691E9B4-E986-4C25-8AAA-A24721E5BB9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3691E9B4-E986-4C25-8AAA-A24721E5BB9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3691E9B4-E986-4C25-8AAA-A24721E5BB9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B63FCB3-0113-4A24-A387-7740AEA31149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B63FCB3-0113-4A24-A387-7740AEA31149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B63FCB3-0113-4A24-A387-7740AEA31149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B63FCB3-0113-4A24-A387-7740AEA31149}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8FBB9CE8-07F6-4296-924E-B5507862CA08} = {3C4B3264-7365-467A-8A4B-7AA03F4C2BD4}
+		{A92642C2-06D3-4291-BEB3-CF8E5ACBC30A} = {3C4B3264-7365-467A-8A4B-7AA03F4C2BD4}
+		{2E415187-756C-4EBB-8B26-31767614A7DB} = {A10FA8E0-2CD2-48C0-BA36-F6AB6F629B1C}
+		{92040841-C717-4A3C-BB90-585A163F00F7} = {A10FA8E0-2CD2-48C0-BA36-F6AB6F629B1C}
+		{3E72B161-825A-414A-A863-3464D51401BD} = {D0D5E03C-5518-45EE-8707-1A65A0FEB1A8}
+		{B4F452E7-2AE5-409D-B89E-4B1D6CF9E031} = {D0D5E03C-5518-45EE-8707-1A65A0FEB1A8}
+		{BA23E0F1-3329-43AF-83FF-18174224612E} = {81133964-BE38-42CA-8CAA-ED113920AC26}
+		{509D2DF3-0815-4D0E-8BB8-46F263168817} = {CAC43818-3DC7-4FC8-B6E5-0BFEA412B1BA}
+		{23088194-177E-4BFB-81EB-129D396B622F} = {CAC43818-3DC7-4FC8-B6E5-0BFEA412B1BA}
+		{3691E9B4-E986-4C25-8AAA-A24721E5BB9C} = {D0D5E03C-5518-45EE-8707-1A65A0FEB1A8}
+		{5B63FCB3-0113-4A24-A387-7740AEA31149} = {D0D5E03C-5518-45EE-8707-1A65A0FEB1A8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5BCB31D3-81D6-4852-8C2F-22DE50954FDA}
+	EndGlobalSection
+EndGlobal
