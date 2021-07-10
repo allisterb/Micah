@@ -261,7 +261,7 @@ module Client =
         let mainOpt =
             Options(
                 Name="Main", 
-                Greetings = "Welcome to Selma. Enter 'hello' or 'hello my name is...(you) to initialize speech.",
+                Greetings = "Welcome to Micah. Enter 'hello' or 'hello my name is...(you) to initialize speech.",
                 Prompt =">"
             )       
         Interpreter(main', (main, mainOpt))

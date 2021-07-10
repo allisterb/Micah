@@ -44,7 +44,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{23088194-177
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Micah.Web", "Micah.Web\Micah.Web.fsproj", "{3691E9B4-E986-4C25-8AAA-A24721E5BB9C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MIcah.CLI", "MIcah.CLI\MIcah.CLI.csproj", "{5B63FCB3-0113-4A24-A387-7740AEA31149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MIcah.CLI", "MIcah.CLI\MIcah.CLI.csproj", "{5B63FCB3-0113-4A24-A387-7740AEA31149}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{283B44CB-9F6E-4402-B5AF-EADCC516CD92}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\presentation\index.html = ..\docs\presentation\index.html
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

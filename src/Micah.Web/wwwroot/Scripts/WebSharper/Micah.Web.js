@@ -2802,22 +2802,14 @@
    b.showCancelButton=true;
    b.confirmButtonText="Ok";
   }
-  function setupBox2(b)
-  {
-   b.confirmButtonClass="invisible";
-   b.showCancelButton=true;
-  }
   function collectFaceAndTypingData()
   {
    var c;
    c=ClientExtensions.createDialogueBoxCanvas();
    ClientExtensions.startCamera(self.document.body,c);
   }
-  function box(t$1)
+  function box()
   {
-   var c,data;
-   c=t$1[0];
-   data=t$1[1];
    ClientExtensions.questionBox("Biometric Authentication","",{
     $:1,
     $0:ClientExtensions.boxesWithTitles(["2","3"])
@@ -2842,28 +2834,7 @@
     }(Global.id))(Strings.Substring(image,0,10))),ClientExtensions.stopCamera(),debug((((Runtime.Curried3(function($1,$2,$3)
     {
      return $1("User entered typing pattern "+Utils.toSafe($2)+" for text "+Utils.toSafe($3));
-    }))(Global.id))(pattern))(text)),text.toLowerCase()!==passPhrase.toLowerCase()?(say("Sorry you did not enter the passphrase correctly. Please try again."),box([c,data])):ClientExtensions.questionBox("Biometric Authentication","",null,null,{
-     $:1,
-     $0:setupBox2
-    },{
-     $:1,
-     $0:function()
-     {
-      ClientExtensions.getDialogueBoxContent().appendChild(ClientExtensions.getMic());
-      d.get_Cui().AudioHandlers.Add("VoiceAuthentication",function(v)
-      {
-       JSON.stringify(((Provider.Id())())(v));
-       ClientExtensions.confirmQuestionBox();
-      });
-     }
-    },function(o$1)
-    {
-     if(!o$1.isConfirmed)
-      {
-       d.get_Cui().AudioHandlers.Remove("VoiceAuthentication");
-       say("OK but you must login for me to help you.");
-      }
-    })):say("OK but you must login for me to help you.");
+    }))(Global.id))(pattern))(text))):say("OK but you must login for me to help you.");
    });
   }
   t=q.get_Target();
@@ -3001,7 +2972,7 @@
    wje=WritingJournlEntry.New("l",Date.now(),writingPrompt,text,triples,lemmas,entities,behaviouralTraits,emotionalTraits);
    Concurrency.Start((b$2=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addWritingJournalEntry:-1111597385",[wje]),function(a$30)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addWritingJournalEntry:1499356372",[wje]),function(a$30)
     {
      return a$30.$==1?Concurrency.Zero():Concurrency.Zero();
     });
@@ -3014,7 +2985,7 @@
    return Concurrency.Delay(function()
    {
     add("journalentry_text",e);
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getTriples:625850498",[e]),function(a$30)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getTriples:-1100088728",[e]),function(a$30)
     {
      var triples;
      return a$30.$==1?Concurrency.Return({
@@ -3041,7 +3012,7 @@
       return Concurrency.Zero();
      }),Concurrency.Delay(function()
      {
-      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getMainLemmas:-1729661864",[e]),function(a$31)
+      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getMainLemmas:-582122425",[e]),function(a$31)
       {
        var e$1,lemmas;
        return a$31.$==1?(e$1=a$31.$0,(Journal.debug(e$1),Concurrency.Return({
@@ -3073,7 +3044,7 @@
          return Concurrency.Zero();
         }),Concurrency.Delay(function()
         {
-         return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEntities:-1035279218",[e]),function(a$32)
+         return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEntities:-235115522",[e]),function(a$32)
          {
           var e$2,entities;
           return a$32.$==1?(e$2=a$32.$0,(Journal.debug(e$2),Concurrency.Return({
@@ -3105,7 +3076,7 @@
             return Concurrency.Zero();
            }),Concurrency.Delay(function()
            {
-            return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEmotionalTraits:1525052358",[e]),function(a$33)
+            return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEmotionalTraits:533117355",[e]),function(a$33)
             {
              var e$3,t$1;
              return a$33.$==1?(e$3=a$33.$0,(Journal.debug(e$3),Concurrency.Return({
@@ -3137,7 +3108,7 @@
                return Concurrency.Zero();
               }),Concurrency.Delay(function()
               {
-               return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getBehavioralTraits:1839184244",[e]),function(a$34)
+               return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getBehavioralTraits:-1760367681",[e]),function(a$34)
                {
                 var e$4,t$2;
                 return a$34.$==1?(e$4=a$34.$0,(Journal.debug(e$4),Concurrency.Return({
@@ -3416,9 +3387,101 @@
    sayRandom(NLG.waitRetrievePhrases(),"user name");
    Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getUser:-603902012",[u]),function(a$22)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getUser:1825097961",[u]),function(a$22)
     {
      var user;
+     function setupBox1(b$2)
+     {
+      b$2.input="text";
+      b$2.showCancelButton=false;
+      b$2.confirmButtonText="Ok";
+     }
+     function collectFaceAndTypingData()
+     {
+      var c;
+      c=ClientExtensions.createDialogueBoxCanvas();
+      ClientExtensions.startCamera(self.document.body,c);
+     }
+     function box()
+     {
+      ClientExtensions.questionBox("Biometric Authentication","",{
+       $:1,
+       $0:ClientExtensions.boxesWithTitles(["2"])
+      },{
+       $:1,
+       $0:[640,480]
+      },{
+       $:1,
+       $0:setupBox1
+      },{
+       $:1,
+       $0:collectFaceAndTypingData
+      },function(o)
+      {
+       var text,image,b$2;
+       text=o.value;
+       image=ClientExtensions.getCameraCanvas().toDataURL();
+       User.debug((function($12)
+       {
+        return function($13)
+        {
+         return $12("User image is "+Utils.toSafe($13)+"...");
+        };
+       }(Global.id))(Strings.Substring(image,0,10)));
+       ClientExtensions.stopCamera();
+       User.debug((function($12)
+       {
+        return function($13)
+        {
+         return $12("User entered text "+Utils.toSafe($13)+".");
+        };
+       }(Global.id))(text));
+       sayRandom(NLG.helloUserPhrases(),user.Name);
+       add("user",u);
+       Concurrency.Start((b$2=null,Concurrency.Delay(function()
+       {
+        return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.updateUserLastLogin:841938033",[user.Name]),function()
+        {
+         return user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.humanize:913142104",[user.LastLoggedIn.$0]),function(a$23)
+         {
+          say((function($12)
+          {
+           return function($13)
+           {
+            return $12("You last logged in "+Utils.toSafe($13)+".");
+           };
+          }(Global.id))(a$23));
+          return Concurrency.Zero();
+         }):Concurrency.Zero();
+        });
+       })),null);
+       doc(Doc.Concat([Bs.btnPrimary("journal",function()
+       {
+        return function()
+        {
+         return(trigger("journal"))("journal");
+        };
+       }),Doc.TextNode("     "),Bs.btnSuccess("symptoms",function()
+       {
+        return function()
+        {
+         return(trigger("symptom_journal"))("symptom_journal");
+        };
+       }),Doc.TextNode("     "),Bs.btnInfo("medication",function()
+       {
+        return function()
+        {
+         return(trigger("medication_journal"))("medication_journal");
+        };
+       }),Doc.TextNode("     "),Bs.btnPrimary("help",function()
+       {
+        return function()
+        {
+         return(trigger("help"))("help");
+        };
+       })]));
+      });
+     }
      return a$22==null?(say((function($12)
      {
       return function($13)
@@ -3452,48 +3515,7 @@
         };
        }(Global.id))(u));
       }
-     })),Concurrency.Zero()):(user=a$22.$0,(sayRandom(NLG.helloUserPhrases(),user.Name),add("user",u),Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.updateUserLastLogin:1119689028",[user.Name]),function()
-     {
-      return Concurrency.Combine(user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.humanize:-523444048",[user.LastLoggedIn.$0]),function(a$23)
-      {
-       say((function($12)
-       {
-        return function($13)
-        {
-         return $12("You last logged in "+Utils.toSafe($13)+".");
-        };
-       }(Global.id))(a$23));
-       return Concurrency.Zero();
-      }):Concurrency.Zero(),Concurrency.Delay(function()
-      {
-       doc(Doc.Concat([Bs.btnPrimary("journal",function()
-       {
-        return function()
-        {
-         return(trigger("journal"))("journal");
-        };
-       }),Doc.TextNode("     "),Bs.btnSuccess("symptoms",function()
-       {
-        return function()
-        {
-         return(trigger("symptom_journal"))("symptom_journal");
-        };
-       }),Doc.TextNode("     "),Bs.btnInfo("medication",function()
-       {
-        return function()
-        {
-         return(trigger("medication_journal"))("medication_journal");
-        };
-       }),Doc.TextNode("     "),Bs.btnPrimary("help",function()
-       {
-        return function()
-        {
-         return(trigger("help"))("help");
-        };
-       })]));
-       return Concurrency.Zero();
-      }));
-     })));
+     })),Concurrency.Zero()):(user=a$22.$0,(box([0,[]]),Concurrency.Zero()));
     });
    })),null);
   }
@@ -3503,7 +3525,7 @@
    Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
     sayRandom(NLG.waitAddPhrases(),"user");
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addUser:-1428433551",[u]),function(a$22)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addUser:204133429",[u]),function(a$22)
     {
      return a$22.$==1?(ClientExtensions.error((((Runtime.Curried3(function($12,$13,$14)
      {
@@ -3558,7 +3580,7 @@
    addUser($4);
   }):m.$==1&&(a$12=User$1(m.$0),a$12!=null&&a$12.$==1&&(a$13=NLU$1.Intent$1("hello",a$12.$0),a$13!=null&&a$13.$==1&&(a$13.$0[0]==null&&(a$14=NLU$1.Entity1Of1("name",a$13.$0[1]),a$14!=null&&a$14.$==1&&(m.$1.$==0&&($5=a$14.$0,true))))))?Concurrency.Start((b=null,Concurrency.Delay(function()
   {
-   return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getUser:-603902012",[$5.get_Value()]),function(a$22)
+   return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getUser:1825097961",[$5.get_Value()]),function(a$22)
    {
     return a$22==null?(say((function($12)
     {
@@ -3635,7 +3657,7 @@
    return Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
     sayRandom(NLG.waitAddPhrases(),"symptom entry");
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addSymptomJournalEntry:-758809927",[user().Name,s,l,m$1]),function(a$7)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addSymptomJournalEntry:-1091140004",[user().Name,s,l,m$1]),function(a$7)
     {
      return a$7.$==1?(say(function($8)
      {
@@ -4173,7 +4195,7 @@
          a=Text.DebugEntities(command);
          return a!=null&&a.$==1?(e$1=a.$0,Client.CUI().Wait((b=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEntities:-1035279218",[e$1]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEntities:-235115522",[e$1]),function(a$13)
           {
            var entities;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(entities=a$13.$0,Concurrency.Combine(Concurrency.For(entities,function(a$14)
@@ -4204,7 +4226,7 @@
           });
          })))):(a$1=Text.DebugLemmas(command),a$1!=null&&a$1.$==1?(e$2=a$1.$0,Client.CUI().Wait((b$1=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getMainLemmas:-1729661864",[e$2]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getMainLemmas:-582122425",[e$2]),function(a$13)
           {
            var lemmas;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(lemmas=a$13.$0,Concurrency.Combine(Concurrency.For(lemmas,function(a$14)
@@ -4235,7 +4257,7 @@
           });
          })))):(a$2=Text.DebugTriples(command),a$2!=null&&a$2.$==1?(dt=a$2.$0,Client.CUI().Wait((b$2=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getTriples:625850498",[dt]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getTriples:-1100088728",[dt]),function(a$13)
           {
            var c;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(c=a$13.$0,Concurrency.Combine(Concurrency.For(c,function(a$14)
@@ -4272,7 +4294,7 @@
           });
          })))):(a$3=Text.DebugEmotionalTraits(command),a$3!=null&&a$3.$==1?(et=a$3.$0,Client.CUI().Wait((b$3=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEmotionalTraits:1525052358",[et]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEmotionalTraits:533117355",[et]),function(a$13)
           {
            var t;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
@@ -4303,7 +4325,7 @@
           });
          })))):(a$4=Text.DebugBehavioralTraits(command),a$4!=null&&a$4.$==1?(bt=a$4.$0,Client.CUI().Wait((b$4=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getBehavioralTraits:1839184244",[bt]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getBehavioralTraits:-1760367681",[bt]),function(a$13)
           {
            var t;
            return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
@@ -4395,7 +4417,7 @@
     {
      return main($1,$2);
     };
-   },(r={},r.name="Main",r.greetings="Welcome to Selma. Enter 'hello' or 'hello my name is...(you) to initialize speech.",r.prompt=">",r)]
+   },(r={},r.name="Main",r.greetings="Welcome to Micah. Enter 'hello' or 'hello my name is...(you) to initialize speech.",r.prompt=">",r)]
   });
  };
  Micah$Web_GeneratedPrintf.p$20=function($1)
