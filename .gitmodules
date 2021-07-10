@@ -1,0 +1,3 @@
+[submodule "ext/impressjs"]
+	path = ext/impressjs
+	url = https://github.com/impress/impress.js.git
