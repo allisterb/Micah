@@ -61,6 +61,7 @@ module ClientExtensions =
 
     let eid = attr.id
     
+    
     let reid s = s + "-" + rnd.Next().ToString()  |> eid
 
     let cls n = attr.``class`` n

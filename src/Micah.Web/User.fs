@@ -99,6 +99,7 @@ module User =
                                 Bs.btnInfo "options" (fun _ _ -> trigger "medication_journal" "medication_journal")
                                 Html.text "     "
                                 Bs.btnPrimary "help" (fun _ _ -> trigger "help" "help")
+                                Bs.btnPrimaryDropdown "dropdownn" ["one";"two"] [(fun _ _ -> trigger "symptom_journal" "symptom_journal"); (fun _ _ -> trigger "symptom_journal" "symptom_journal")]
                             ]
                         )        
                     box(0, [||])
