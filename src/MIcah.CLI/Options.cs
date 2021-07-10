@@ -27,6 +27,23 @@ namespace Micah.CLI
         public string Text { get; set; }
     }
 
+    [Verb("ghc", HelpText = "Use Google HealthCare NLU on text.")]
+    class GoogleHCNLUOptions : Options
+    {
+        [Option('t', "text", Required = true, HelpText = "The text to understand.")]
+        public string Text { get; set; }
 
+        [Option('j', "json", Required = false, HelpText = "Print raw JSON output.", Default = false)]
+        public bool Json { get; set; }
+    }
 
+    [Verb("eai", HelpText = "Use expert.ai NLU on text.")]
+    class ExpertAINLUOptions : Options
+    {
+        [Option('t', "text", Required = true, HelpText = "The text to understand.")]
+        public string Text { get; set; }
+
+        [Option('j', "json", Required = false, HelpText = "Print raw JSON output.", Default = false)]
+        public bool Json { get; set; }
+    }
 }

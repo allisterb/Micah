@@ -7,12 +7,15 @@ using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
-using Newtonsoft.Json.Converters;
+using Newtonsoft.Json;
 
 using CO = Colorful.Console;
 using Figgle;
 using CommandLine;
 using CommandLine.Text;
+
+using Micah.NLU.GoogleHC;
+using Micah.NLU.ExpertAI;
 
 namespace Micah.CLI
 {
@@ -32,7 +35,7 @@ namespace Micah.CLI
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Console.CancelKeyPress += Console_CancelKeyPress;
             PrintLogo();
-            ParserResult<object> result = new Parser().ParseArguments<WitOptions, ASROptions>(args);
+            ParserResult<object> result = new Parser().ParseArguments<WitOptions, ASROptions, GoogleHCNLUOptions, ExpertAINLUOptions>(args);
             result.WithNotParsed((IEnumerable<Error> errors) =>
             {
                 HelpText help = GetAutoBuiltHelpText(result);
@@ -52,7 +55,7 @@ namespace Micah.CLI
                     }
                     else
                     {
-                        help.AddVerbs(typeof(WitOptions), typeof(ASROptions));
+                        help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
                     }
                     Info(help);
                     Exit(ExitResult.SUCCESS);
@@ -60,13 +63,13 @@ namespace Micah.CLI
                 else if (errors.Any(e => e.Tag == ErrorType.HelpRequestedError))
                 {
                     HelpRequestedError error = (HelpRequestedError)errors.First(e => e.Tag == ErrorType.HelpRequestedError);
-                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions));
+                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
                     Info(help);
                     Exit(ExitResult.SUCCESS);
                 }
                 else if (errors.Any(e => e.Tag == ErrorType.NoVerbSelectedError))
                 {
-                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions));
+                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
                     Info(help);
                     Exit(ExitResult.INVALID_OPTIONS);
                 }
@@ -80,7 +83,7 @@ namespace Micah.CLI
                 else if (errors.Any(e => e.Tag == ErrorType.UnknownOptionError))
                 {
                     UnknownOptionError error = (UnknownOptionError)errors.First(e => e.Tag == ErrorType.UnknownOptionError);
-                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions));
+                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
                     Error("Unknown option: {error}.", error.Token);
                     Info(help);
                     Exit(ExitResult.INVALID_OPTIONS);
@@ -88,7 +91,7 @@ namespace Micah.CLI
                 else
                 {
                     Error("An error occurred parsing the program options: {errors}.", errors);
-                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions));
+                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
                     Info(help);
                     Exit(ExitResult.INVALID_OPTIONS);
                 }
@@ -100,6 +103,14 @@ namespace Micah.CLI
             .WithParsed<ASROptions>(o =>
             {
                 ASR(o);
+            })
+            .WithParsed<GoogleHCNLUOptions>(o =>
+            {
+                GHC(o);
+            })
+            .WithParsed<ExpertAINLUOptions>(o =>
+            {
+                EAI(o);
             });
         }
 
@@ -111,6 +122,28 @@ namespace Micah.CLI
             var r = HttpClient.GetAsync("https://api.wit.ai/message?q=" + o.Text).Result;
             r.EnsureSuccessStatusCode();
             WriteInfo(r.Content.ReadAsStringAsync().Result);
+            Exit(ExitResult.SUCCESS);
+        }
+
+        public static void GHC(GoogleHCNLUOptions o)
+        {
+            if (o.Json)
+            {
+                var s = GoogleHCApi.AnalyzeEntities(o.Text).Result;
+                WriteInfo(s);
+            }
+            else
+            {
+                var s = GoogleHCApi.AnalyzeEntities2(o.Text).Result;
+                WriteInfo("Entities:\n{0}", s.EntityMentions.Select(e => e.ToString()).Aggregate((s1, s2) => s1 + "\n\n" + s2));
+            }
+            Exit(ExitResult.SUCCESS);
+        }
+
+        public static void EAI(ExpertAINLUOptions o)
+        {
+            var eai = new ExpertAIApi(Config("EXPERTAI_TOKEN2"));
+            WriteInfo("{0}", eai.AnalyzeRelations(o.Text).Result.Select(s => JsonConvert.SerializeObject(s)).Aggregate((s1, s2) => s1 + "\n\n" + s2));
             Exit(ExitResult.SUCCESS);
         }
 

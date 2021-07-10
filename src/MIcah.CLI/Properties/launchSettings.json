@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MIcah.CLI": {
+      "commandName": "Project",
+      "commandLineArgs": "ghc -t \"The patient requires MRI.\" "
+    }
+  }
+}

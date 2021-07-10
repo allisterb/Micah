@@ -2,7 +2,7 @@ namespace Micah.NLU.GoogleHC.Models
 {
     using System;
     using System.Collections.Generic;
-
+    using System.Linq;
     using System.Globalization;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
@@ -17,6 +17,8 @@ namespace Micah.NLU.GoogleHC.Models
 
         [JsonProperty("relationships")]
         public Relationship[] Relationships { get; set; }
+
+        public override string ToString() => string.Format("Entities: {0}. Relationships: {1}.", EntityMentions.Select(e => e.ToString()).Aggregate((e1, e2) => e1 + " " + e2), Relationships.Select(e => e.ToString()).Aggregate((e1, e2) => e1 + " " + e2));      
     }
 
     public partial class Entity
@@ -29,6 +31,8 @@ namespace Micah.NLU.GoogleHC.Models
 
         [JsonProperty("vocabularyCodes")]
         public string[] VocabularyCodes { get; set; }
+
+        public override string ToString() => string.Format("Id:{0}. PreferredTerm:{1}. Codes:{2}.", EntityId, PreferredTerm, VocabularyCodes);
     }
 
     public partial class EntityMention
@@ -57,6 +61,8 @@ namespace Micah.NLU.GoogleHC.Models
 
         [JsonProperty("confidence")]
         public double Confidence { get; set; }
+
+        public override string ToString() => string.Format("(Id:{0}, Type:{1}, TemporalAssessment:{2}, CertaintyAssessment:{3}, Subject:{4}, Confidence:{5})", MentionId, Type, TemporalAssessment, CertaintyAssessment, Subject, Confidence);
     }
 
     public partial class CertaintyAssessment
@@ -66,12 +72,16 @@ namespace Micah.NLU.GoogleHC.Models
 
         [JsonProperty("confidence")]
         public double Confidence { get; set; }
+
+        public override string ToString() => string.Format("(Value:{0}, Confidence:{1})", Value, Confidence);
     }
 
     public partial class LinkedEntity
     {
         [JsonProperty("entityId")]
         public string EntityId { get; set; }
+
+        public override string ToString() => string.Format("(Id: {0})", EntityId);
     }
 
     public partial class Text
@@ -81,6 +91,8 @@ namespace Micah.NLU.GoogleHC.Models
 
         [JsonProperty("beginOffset")]
         public long BeginOffset { get; set; }
+
+        public override string ToString() => string.Format("(Text: {0})", Content);
     }
 
     public partial class Relationship
@@ -95,5 +107,7 @@ namespace Micah.NLU.GoogleHC.Models
 
         [JsonProperty("confidence")]
         public double Confidence { get; set; }
+
+        public override string ToString() => string.Format("(Subject:{0}, Object:{1}, Confidence:{2})", SubjectId, ObjectId, Confidence);
     }
 }
