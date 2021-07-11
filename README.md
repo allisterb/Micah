@@ -1,3 +1,5 @@
+# Micah
+
 # Problem statement - EHR pain points
 * Too much time spent fighting EHR systems vs. spending time with patients
 * Complex, unforgiving interface actions required for querying, searching, retrieving information from EHR
