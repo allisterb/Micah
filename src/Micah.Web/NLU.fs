@@ -304,7 +304,7 @@ module NLU =
         let private trait_types = ["domain"; "dialogue_act"]
 
         let getUtterance sentence m =
-            Witai.getMeaning "W2WAT2D6U634KSKMR44NWFHJWQAVLVV3" sentence 
+            Witai.getMeaning "OOGDHEQL7JZRQASXN2N2GHFUKGO3SCNV" sentence 
                (Action<obj, string, JQuery.JqXHR>(
                     fun o _ _ -> 
                         debug "NLU" <| sprintf  "Wit.ai returned: %A" o
@@ -330,6 +330,7 @@ module NLU =
                                 |> Seq.concat
                                 |> List.ofSeq
                             else []
+                        debug "NLU" <| sprintf "Utterance: %A " (Utterance'(sentence, intents, entities, traits))
                         m (Some(Utterance'(sentence, intents, entities, traits)))
                 ))
                 (Action<JQuery.JqXHR, string, string>( 
@@ -345,7 +346,9 @@ module NLU =
                 let intents = m.intents |> Array.map(fun a -> Intent'(a.name, a.confidence)) |> List.ofArray
                 let entities = m.entities |> Map.toSeq |> Seq.map snd |> Seq.concat |> List.ofSeq |> List.map(fun e -> Entity'(e.name, e.confidence, e.role, e.value))
                 let traits = m.traits |> Map.toSeq |> Seq.map(fun t -> let t' = snd t in Trait'(fst t, t'.[0].confidence, t'.[0].value)) |> List.ofSeq                
-                return Utterance'(sentence, intents, entities, traits)
+                let u = Utterance'(sentence, intents, entities, traits)
+                debug "NLU" <| sprintf "Utterance %A " u
+                return u
             }
  
         let mutable intentConfidenceThreshold = 0.85f
