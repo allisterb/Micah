@@ -128,7 +128,8 @@ module User =
         match Dialogue.frame utterances with
         
         (* User login *)
-        | User'(Intent "greet" (_, Entity1Of1 "name" u))::[] -> handle "loginUser" (fun _ -> loginUser u.Value)
+        | User'(Intent "greet" (_, Entity1Of1 "name" u))::[]
+        | User'(Intent "greet" (_, Entity1Of1 "contact" u))::[]-> handle "loginUser" (fun _ -> loginUser u.Value)
         | User'(Intent "hello" (_, Entity1Of1 "contact" u))::[] -> handle "loginUser" (fun _ -> loginUser u.Value)
         
         (* User add *)
@@ -153,8 +154,7 @@ module User =
         | User(Intent "query" _)::[]
         | User(Intent "medication_journal" _)::[] -> Journal.update d
 
-        | User(Intent "new" _)::[] ->
-            Bs.btnSecondaryDropdown "patient"
+        | User(Intent "new" _)::[] -> ()
         | User(Intent "query" _)::[]
         | User(Intent "option" _)::[] -> Journal.update d
         

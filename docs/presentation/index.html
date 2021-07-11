@@ -34,38 +34,49 @@
 
 -----
 # Micah - Multimodal Intelligent Clinical Assistant for Healthcare
+## https://github.com/allisterb/Micah
 </div>
 
 <div class="step slide"  data-rel-x="0" data-rel-y="900">
     <h1>Micah</h1>
     <p class="substep fly-in fly-out">Embodied, virtual assistant for clinicians using EHR</p>
-    <p class="substep fly-in fly-out">Improve usability of EHR by interfacing using natural language instead of GUI widgets</p>
+    <p class="substep fly-in fly-out">Improve usability of EHR systens by interfacing using natural language instead of GUI widgets</p>
     <p class="substep fly-in fly-out">Micah communicates using voice, text, images, multimedia...</p>
     <p class="substep fly-in fly-out">Deep analysis of natural language medical notes and free text to extract structured information</p>
-    <p class="substep fly-in fly-out">Store and query health data in FHIR instances provided by Google HealthCare</p>
+    <p class="substep fly-in fly-out">Store and query health data in multiple FHIR stores</p>
+    <p class="substep fly-in fly-out">100% open-source</p>
 </div>
 
 <div class="step slide markdown" data-rel-x="0" data-rel-y="900">
------
-# Micah
-* Embodied, virtual assistant for clinicians
-* Communicate using voice, text, images, multimedia
-* Interface with EHR system using natural language
-* Deep analysis of natural language notes and text to extract structured information
-* Store and query health data in FHIR stores
-* 100% open-source
-
------
-# EHR pain points
+# Problem statement - EHR pain points
+* Too much time spent fighting EHR systems vs. spending time with patients
 * Complex interface actions required for querying, searching, retrieving information from EHR
 * Mode mismatch entering and querying patient data vs. conversing with patient or other staff
 * Software or interface changes or additions require retraining
 * Physician burnout... 
-* Proprietary software promotes vendor lock-in
+* Proprietary software promotes vendor lock-in, patient data silos
 * Cost
 
 -----
-# Implementation
+# STOP! - How to avoid medical 'Clippy'?
+* Use deterministic rule-based dialogue manager based on NLU semantic parsing
+* NLU technology is maturing rapidly
+* Models trained on knowledge graphs, not simple conversations
+
+-----
+# Typical use case
+1. User logs in to Micah over the Web
+2. Authentication via OAuth and optional biometric authentication
+3. User selects public-facing FHIR server or uses Google Healthcare store
+4. User queries patient records FHIR store using natural language e.g 
+    * `Find Michael Parks from Manhattan`
+    * `show me all vital observations for Michael Parks since last Thursday`
+5. Single query can potentially be sent to multiple FHIR servers
+6. User adds notes, observations, Health & Physical Examination....
+7. Micah extracts FHIR resources from text and stores it in designated server
+
+-----
+# Implementation - Overview
 * Written in F# and runs on .NET and PGSQL
 * Hosted on RedHat OpenShift Kubernetes-based PaaS
 * NLU services:
@@ -77,34 +88,15 @@
 * Can use facial and TypingDNA typing biometric authentication
 
 -----
-# Functions
-* Patient encounters
-* Diagnosis 
-* Scheduling procedures and appointments
-* Chart notes
-* Immunizations
-* Allergies
+# Implementation - Security
+* OAuth authentication using Google
+* In-browser biometric facial recognition e.g via. Azure Face recognition 
+* In-browser biometric typing recognition via TypingDNA
+* Google Healthcare is HIPAA compliant
+* Google Healthcare FHIR uses OAuth authentication
 
 -----
-# Code
-
-When also using [Highlight.js](https://highlightjs.org/) integration, code blocks in Markdown
-are converted to HTML first, then colored by Highlight.js:
-
-        // `init` API function that initializes (and runs) the presentation.
-        var init = function () {
-            if (initialized) { return; }
-            execPreInitPlugins();
-            
-            // First we set up the viewport for mobile devices.
-            // For some reason iPad goes nuts when it is not done properly.
-            var meta = $("meta[name='viewport']") || document.createElement("meta");
-            meta.content = "width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no";
-            if (meta.parentNode !== document.head) {
-                meta.name = 'viewport';
-                document.head.appendChild(meta);
-            }        
-
+Tech Demo
 </div>
 
 

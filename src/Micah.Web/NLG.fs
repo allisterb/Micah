@@ -15,12 +15,12 @@ module NLG =
 
     let helloPhrases = [
         "Welcome!"
-        "Welcome, my name is Selma."
-        "Welcome to Selma. How can I help?"
-        "Hello this is Selma, how can I help?"
-        "Hello, I am Selma. How can I help?"
-        "Hello, I am Selma. How may I help you now?"
-        "I'm Selma. Tell me your name so we can get started."
+        "Welcome, my name is Micah."
+        "Welcome to Micah. How can I help?"
+        "Hello this is Micah, how can I help?"
+        "Hello, I am Micah. How can I help?"
+        "Hello, I am Micah. How may I help you now?"
+        "I'm Micah. Tell me your name so we can get started."
     ]
 
     let helloUserPhrases = [
