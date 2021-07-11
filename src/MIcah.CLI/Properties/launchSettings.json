@@ -2,7 +2,7 @@
   "profiles": {
     "MIcah.CLI": {
       "commandName": "Project",
-      "commandLineArgs": "ghc -t \"The patient requires MRI.\" "
+      "commandLineArgs": "fhir -d -g --search-patients family=Park"
     }
   }
 }

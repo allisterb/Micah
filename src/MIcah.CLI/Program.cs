@@ -16,6 +16,7 @@ using CommandLine.Text;
 
 using Micah.NLU.GoogleHC;
 using Micah.NLU.ExpertAI;
+using Micah.FHIR;
 
 namespace Micah.CLI
 {
@@ -27,6 +28,7 @@ namespace Micah.CLI
             if (Args.Contains("--debug"))
             {
                 SetLogger(new SerilogLogger(console: true, debug: true));
+                Debug("Debug mode enabled.");
             }
             else
             {
@@ -35,7 +37,7 @@ namespace Micah.CLI
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Console.CancelKeyPress += Console_CancelKeyPress;
             PrintLogo();
-            ParserResult<object> result = new Parser().ParseArguments<WitOptions, ASROptions, GoogleHCNLUOptions, ExpertAINLUOptions>(args);
+            ParserResult<object> result = new Parser().ParseArguments<WitOptions, ASROptions, GoogleHCNLUOptions, ExpertAINLUOptions, FHIROptions>(args);
             result.WithNotParsed((IEnumerable<Error> errors) =>
             {
                 HelpText help = GetAutoBuiltHelpText(result);
@@ -55,7 +57,7 @@ namespace Micah.CLI
                     }
                     else
                     {
-                        help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
+                        help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions), typeof(FHIROptions));
                     }
                     Info(help);
                     Exit(ExitResult.SUCCESS);
@@ -63,13 +65,13 @@ namespace Micah.CLI
                 else if (errors.Any(e => e.Tag == ErrorType.HelpRequestedError))
                 {
                     HelpRequestedError error = (HelpRequestedError)errors.First(e => e.Tag == ErrorType.HelpRequestedError);
-                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
+                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions), typeof(FHIROptions));
                     Info(help);
                     Exit(ExitResult.SUCCESS);
                 }
                 else if (errors.Any(e => e.Tag == ErrorType.NoVerbSelectedError))
                 {
-                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
+                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions), typeof(FHIROptions));
                     Info(help);
                     Exit(ExitResult.INVALID_OPTIONS);
                 }
@@ -83,7 +85,7 @@ namespace Micah.CLI
                 else if (errors.Any(e => e.Tag == ErrorType.UnknownOptionError))
                 {
                     UnknownOptionError error = (UnknownOptionError)errors.First(e => e.Tag == ErrorType.UnknownOptionError);
-                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
+                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions), typeof(FHIROptions));
                     Error("Unknown option: {error}.", error.Token);
                     Info(help);
                     Exit(ExitResult.INVALID_OPTIONS);
@@ -91,7 +93,7 @@ namespace Micah.CLI
                 else
                 {
                     Error("An error occurred parsing the program options: {errors}.", errors);
-                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions));
+                    help.AddVerbs(typeof(WitOptions), typeof(ASROptions), typeof(GoogleHCNLUOptions), typeof(ExpertAINLUOptions), typeof(FHIROptions));
                     Info(help);
                     Exit(ExitResult.INVALID_OPTIONS);
                 }
@@ -111,11 +113,72 @@ namespace Micah.CLI
             .WithParsed<ExpertAINLUOptions>(o =>
             {
                 EAI(o);
+            })
+            .WithParsed<FHIROptions>(o =>
+            {
+                FHIR(o);
             });
         }
 
         #region Methods
 
+        public static void FHIR(FHIROptions o)
+        {
+            FHIR3Client client;
+            if (o.Google)
+            {
+                client = new GoogleHCFHIR3Client();
+            }
+            else
+            {
+                client = new FHIR3Client(o.Endpoint);
+            }
+            Info("Using FHIR endpoint {0}.", o.Endpoint);
+            if (o.CreatePatient == 1)
+            {
+                
+                var pid = Guid.NewGuid().ToString();
+                client.CreateDemoPatient1(pid).Wait();
+                Info("Created demo patient 1 with id {0}.", pid);
+                Exit(ExitResult.SUCCESS);
+            }
+            else if(!string.IsNullOrEmpty(o.SearchPatients))
+            {
+                string[] search_params;
+                var search = Options.Parse(o.SearchPatients);
+                if (search.Count == 0)
+                {
+                    Error("There was an error parsing the search parameters {0}.", o.SearchPatients);
+                    Exit(ExitResult.INVALID_OPTIONS);
+                }
+                else if (search.Where(o => o.Key == "_ERROR_").Count() > 0)
+                {
+
+                    string error_options = search.Where(o => o.Key == "_ERROR_").Select(kv => (string)kv.Value).Aggregate((s1, s2) => s1 + Environment.NewLine + s2);
+                    Error("There was an error parsing the following options {0}.", error_options);
+                    
+                    Exit(ExitResult.INVALID_OPTIONS);
+                }
+                else
+                {
+                    search_params = search.Where(o => o.Key != "_ERROR_").Select(kvp => kvp.Key + ":exact=" + kvp.Value).ToArray();
+                    var b = client.SearchPatients(search_params).Result;
+                    if (o.Json)
+                    {
+                        WriteInfo(JsonConvert.SerializeObject(b.Entry.Select(e => e.Resource)));
+                    }
+                    else
+                    {
+                        foreach (var ec in b.Entry)
+                        {
+                            var p = (Hl7.Fhir.Model.Patient) ec.Resource;
+                            WriteInfo("Id:{0}. Name: {1}.", p.Id, p.Name[0]);
+                        }
+                    }
+                    Exit(ExitResult.SUCCESS);
+                }
+            }
+        }
         public static void Wit(WitOptions o) 
         {
             HttpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Config("WIT2"));

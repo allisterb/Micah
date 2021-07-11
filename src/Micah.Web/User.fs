@@ -91,16 +91,17 @@ module User =
                                     let! h = Server.humanize user.LastLoggedIn.Value
                                     say <| sprintf "You last logged in %s." h
                             } |> Async.Start
+                            echo "Click one of the buttons below to get more help."
                             doc <| Doc.Concat [
-                                Bs.btnPrimary "new" (fun _ _ -> trigger "journal" "journal")
+                                Bs.btnPrimary "new" (fun _ _ -> trigger "new" "new")
                                 Html.text "     "
-                                Bs.btnSuccess "query" (fun _ _ -> trigger "symptom_journal" "symptom_journal")
+                                Bs.btnSuccess "query" (fun _ _ -> trigger "query" "query")
                                 Html.text "     "
-                                Bs.btnInfo "options" (fun _ _ -> trigger "medication_journal" "medication_journal")
+                                Bs.btnInfo "options" (fun _ _ -> trigger "options" "medication_journal")
                                 Html.text "     "
                                 Bs.btnPrimary "help" (fun _ _ -> trigger "help" "help")
-                                Bs.btnPrimaryDropdown "dropdownn" ["one";"two"] [(fun _ _ -> trigger "symptom_journal" "symptom_journal"); (fun _ _ -> trigger "symptom_journal" "symptom_journal")]
                             ]
+                            say "Click on one of the buttons to get more help"
                         )        
                     box(0, [||])
 
@@ -148,9 +149,14 @@ module User =
         | No(Response "switchUser" (_, _, PStr user))::[] -> 
             say <| sprintf "Ok I did not switch to user %s." user
         
-        | User(Intent "journal" _)::[] 
-        | User(Intent "symptom_journal" _)::[]
+        | User(Intent "new" _)::[] 
+        | User(Intent "query" _)::[]
         | User(Intent "medication_journal" _)::[] -> Journal.update d
+
+        | User(Intent "new" _)::[] ->
+            Bs.btnSecondaryDropdown "patient"
+        | User(Intent "query" _)::[]
+        | User(Intent "option" _)::[] -> Journal.update d
         
         | _ -> didNotUnderstand()
 

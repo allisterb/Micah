@@ -6,6 +6,8 @@
     <UserSecretsId>f3ed0dc7-f978-44ae-8add-9e5bfcf8fa8a</UserSecretsId>
     <RootNamespace>Micah.CLI</RootNamespace>
     <AssemblyName>Micah.CLI</AssemblyName>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

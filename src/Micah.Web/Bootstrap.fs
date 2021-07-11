@@ -36,12 +36,12 @@ module Bs =
         let sid  = "btndropdown" + "-" + rnd.Next().ToString()
         let id = attr.id sid 
             
-        div [cls "dropdown"] [
+        div [cls "btn-group dropright"] [
             button [id; cls (btncls + " " + c + " " + "dropdown-toggle"); attr.``type`` "button"; Attr.Create "data-toggle" "dropdown"; Attr.Create "aria-haspopup" "true"; Attr.Create "aria-expanded" "false"] [text label]
             div [cls "dropdown-menu";  Attr.Create "aria-labelledby" sid] (labels |> List.mapi(fun i l -> a [cls "dropdown-item"; href "#"; on.click onclicks.[i]] [text l]))
         ]
     let btnPrimaryDropdown label labels onclicks = btnDropdown "btn-primary" label labels onclicks
-    
+    let btnSecondaryDropdown label labels onclicks = btnDropdown "btn-secondary" label labels onclicks
     //let btnPrimary label onclick = button [reid "btn"; cls "btn btn-primary"; on.click onclick] [text label]
     //let btnSecondary label onclick = button [reid "btn"; cls "btn btn-secondary"; on.click onclick] [text label]
     //let btnSuccess label onclick = button [reid "btn"; cls "btn btn-success"; on.click onclick] [text label]

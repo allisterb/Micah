@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Mutimodal Intelligent Clinical Assistant for Healthcar</title>
+    <title>Mutimodal Intelligent Clinical Assistant for Healthcare</title>
     
     <meta name="description" content="Presentation on Micah" />
     <meta name="author" content="Allister Beharry" />
@@ -27,51 +27,63 @@
 
 <div id="impress" data-transition-duration="500">
 
-<div id="markdown" class="step slide markdown" data-rel-x="0" data-rel-y="900">
+<div class="step slide markdown" data-rel-x="0" data-rel-y="900">
 # Micah 
 ## FHIR @Hack 2021 Pitch
 ## Allister Beharry
-### July 10th 2021
------
-# Micah - Multimodal Intelligent Clinical Assistant for HealthCare
 
+-----
+# Micah - Multimodal Intelligent Clinical Assistant for Healthcare
+</div>
+
+<div class="step slide"  data-rel-x="0" data-rel-y="900">
+    <h1>Micah</h1>
+    <p class="substep fly-in fly-out">Embodied, virtual assistant for clinicians using EHR</p>
+    <p class="substep fly-in fly-out">Improve usability of EHR by interfacing using natural language instead of GUI widgets</p>
+    <p class="substep fly-in fly-out">Micah communicates using voice, text, images, multimedia...</p>
+    <p class="substep fly-in fly-out">Deep analysis of natural language medical notes and free text to extract structured information</p>
+    <p class="substep fly-in fly-out">Store and query health data in FHIR instances provided by Google HealthCare</p>
+</div>
+
+<div class="step slide markdown" data-rel-x="0" data-rel-y="900">
 -----
 # Micah
 * Embodied, virtual assistant for clinicians
 * Communicate using voice, text, images, multimedia
 * Interface with EHR system using natural language
-* Deep analysis of natural language notes and text to extract
-* Store and query health data in FHIR instances
+* Deep analysis of natural language notes and text to extract structured information
+* Store and query health data in FHIR stores
+* 100% open-source
 
 -----
-# Markdown.js
-
-* Provided by [Markdown.js](https://github.com/evilstreak/markdown-js) in [extras/](https://github.com/impress/impress.js/tree/master/extras)
-* Jot down your bullet points in *Markdown* & have it automatically converted to HTML
-* Note: The Markdown is converted into a presentation client side, in the browser. This is unlike
-  existing tools like [Hovercraft](https://github.com/regebro/hovercraft) and 
-  markdown-impress where you generate a new
-  html file on the command line.
-* This combines the ease of typing Markdown with the full power of impress.js HTML5+CSS3+JavaScript!
+# EHR pain points
+* Complex interface actions required for querying, searching, retrieving information from EHR
+* Mode mismatch entering and querying patient data vs. conversing with patient or other staff
+* Software or interface changes or additions require retraining
+* Physician burnout... 
+* Proprietary software promotes vendor lock-in
+* Cost
 
 -----
-# Styles
-
-* You can use *italics* & **bold**
-* ...and `code`
-
+# Implementation
+* Written in F# and runs on .NET and PGSQL
+* Hosted on RedHat OpenShift Kubernetes-based PaaS
+* NLU services:
+    * Wit.ai
+    * Google Healthcare NLU
+    * expert.ai
+* Firely .NET FHIR libraries
+* Connects to Google Healthcare FHIR store + public FHIR stores
+* Can use facial and TypingDNA typing biometric authentication
 
 -----
-# A blockquote &amp; image
-
-![Mother Teresa holding a newborn baby](images/3476636111_c551295ca4_b.jpg)
-
-> Spread love everywhere you go.
-> Let no one ever come to you without leaving happier.
-
-*-- Mother Teresa*
-
-Image credit: [Peta de Aztlan](https://www.flickr.com/photos/peta-de-aztlan/3476636111/)@Flickr. CC-BY 2.0
+# Functions
+* Patient encounters
+* Diagnosis 
+* Scheduling procedures and appointments
+* Chart notes
+* Immunizations
+* Allergies
 
 -----
 # Code
@@ -93,84 +105,8 @@ are converted to HTML first, then colored by Highlight.js:
                 document.head.appendChild(meta);
             }        
 
------
-
-# Slide separator
-
-* 5 dashes are used to separate slides:
-
-`-----`
-
-* Attributes from `div.step` element are simply repeated.
-  * Better use relative positioning, lest your slides will all be on top of each other.
-* If you need to set some attributes, just use HTML and create a div element, then write 
-  Markdown inside each div.
 </div>
 
-<div id="title-slide" class="step slide title markdown" data-x="2000" data-y="5000">
-# Title slide
-## This slide has different CSS class than the previous ones
-</div>
-
-
-<div id="tilted-slide" class="step slide markdown" data-rotate="-85" data-x="2000" data-y="2000" data-z="1000" data-scale="4">
-# Simplicity of Markdown & Full power of Impress.js
-  
-* This slide sets its own `rotate`, `x`, `y`, and even `z` coordinates
-* Note that the Mother Teresa slide earlier was pimped with some custom CSS, all the while
-  the content was written in simple Markdown.
-</div>
-
-<div class="step slide title markdown" data-rotate="-85" data-x="4000" data-y="2000" data-markdown-dialect="Maruku">
-This is an example of a slide with a specific Markdown dialect.
-===============================================================
-</div>
-
-<script type="text/javascript">
-var enableBwCss = function(){
-    disableDevopsCss();
-    disableEffectsCss();
-};
-
-var enableDevopsCss = function(){
-    document.body.classList.add("devopsy");
-    disableEffectsCss();
-};
-
-var disableDevopsCss = function(){
-    document.body.classList.remove("devopsy");
-};
-
-var enableEffectsCss = function(){
-    document.body.classList.add("effects");
-    disableDevopsCss();
-};
-
-var disableEffectsCss = function(){
-    document.body.classList.remove("effects");
-};
-</script>
-
-
-<div id="js-slide" class="step slide" data-rotate="0" data-x="4000" data-y="5000">
-<h1>CSS &amp; JavaScript magic</h1>
-
-<p>Just to emphasize my point, this last slide allows you to use a JavaScript powered menu to
-toggle the CSS style:</p>
-
-<p><a href="#" onclick="enableBwCss();" class="css-menu-bw">Black &amp; white</a>, 
-<a href="#" onclick="enableDevopsCss();" class="css-menu-devopsy">Devopsy</a>, 
-<a href="#" onclick="enableEffectsCss();" class="css-menu-effects">Effects overload</a></p>
-
-<p>Simplicity of Markdown married with full power of Impress.js!</p>
-
-</div>
-
-
-<div id="overview" class="step" data-x="5000" data-y="4000" data-scale="10" style="pointer-events: none;" data-rotate="5">
-</div>
-
-</div>
 
 <div id="impress-toolbar"></div>
 <div id="impress-help"></div>
