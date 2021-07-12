@@ -128,9 +128,9 @@ module User =
         match Dialogue.frame utterances with
         
         (* User login *)
-        | User'(Intent "greet" (_, Entity1Of1 "name" u))::[]
-        | User'(Intent "greet" (_, Entity1Of1 "contact" u))::[]-> handle "loginUser" (fun _ -> loginUser u.Value)
-        | User'(Intent "hello" (_, Entity1Of1 "contact" u))::[] -> handle "loginUser" (fun _ -> loginUser u.Value)
+        | User'(Intent "greet" (_, Entity1OfAny "name" u))::[]
+        | User'(Intent "greet" (_, Entity1OfAny "contact" u))::[]-> handle "loginUser" (fun _ -> loginUser u.Value)
+        | User'(Intent "hello" (_, Entity1OfAny "contact" u))::[] -> handle "loginUser" (fun _ -> loginUser u.Value)
         
         (* User add *)
         | No(Response' "addUser" (_, _, PStr u))::[] -> endt "addUser" (fun _ -> say <| sprintf "Ok I did not add the user %s. But you must login for me to help you." u)

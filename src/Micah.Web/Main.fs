@@ -95,6 +95,9 @@ module Main =
         (* User login *)
         | User'(Intent "greet" (_, Entity1Of1 "name" _))::[] -> dispatch User.name User.update
         | User'(Intent "hello" (_, Entity1Of1 "contact" _))::[] -> dispatch User.name User.update
+        | User'(Intent "greet" (_, Entity1OfAny "name" u))::[]
+        | User'(Intent "greet" (_, Entity1OfAny "contact" u))::[]-> dispatch User.name User.update
+       
 
         (* Journal entry *)
         | User(Intent "journal" _)::[] -> dispatch Journal.name Journal.update

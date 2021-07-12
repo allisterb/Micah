@@ -299,12 +299,12 @@ module NLU =
                 member x.Confidence = let (_, c, _) = x.Unwrap in c
                 member x.Value = let (_, _, v) = x.Unwrap in v
 
-        let private entity_types = ["wit$contact:name"; "wit$datetime:datetime"; "term:subject"; "term:object"; "term:verb";]
+        let private entity_types = ["wit$contact:name"; "wit$contact:contact"; "wit$contact:search_param_name"; "wit$datetime:datetime"; "term:subject"; "term:object"; "term:verb";  "wit$local_search_query:local_search_query"]
 
         let private trait_types = ["domain"; "dialogue_act"]
 
         let getUtterance sentence m =
-            Witai.getMeaning "OOGDHEQL7JZRQASXN2N2GHFUKGO3SCNV" sentence 
+            Witai.getMeaning "W2WAT2D6U634KSKMR44NWFHJWQAVLVV3" sentence 
                (Action<obj, string, JQuery.JqXHR>(
                     fun o _ _ -> 
                         debug "NLU" <| sprintf  "Wit.ai returned: %A" o
@@ -342,7 +342,7 @@ module NLU =
         let getUtterance2 sentence = 
             async {
                 let! m = Witai.getMeaning2 "W2WAT2D6U634KSKMR44NWFHJWQAVLVV3" sentence
-                debug "NLU" <| sprintf "Wit.ai returned %A " m
+                debug "NLU" <| sprintf "Wit.ai returned %A " m.entities
                 let intents = m.intents |> Array.map(fun a -> Intent'(a.name, a.confidence)) |> List.ofArray
                 let entities = m.entities |> Map.toSeq |> Seq.map snd |> Seq.concat |> List.ofSeq |> List.map(fun e -> Entity'(e.name, e.confidence, e.role, e.value))
                 let traits = m.traits |> Map.toSeq |> Seq.map(fun t -> let t' = snd t in Trait'(fst t, t'.[0].confidence, t'.[0].value)) |> List.ofSeq                
