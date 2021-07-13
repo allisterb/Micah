@@ -299,7 +299,15 @@ module NLU =
                 member x.Confidence = let (_, c, _) = x.Unwrap in c
                 member x.Value = let (_, _, v) = x.Unwrap in v
 
-        let private entity_types = ["wit$contact:name"; "wit$contact:contact"; "wit$contact:search_param_name"; "wit$datetime:datetime"; "term:subject"; "term:object"; "term:verb";  "wit$local_search_query:local_search_query"]
+        let private agenda_entry_entity_types = ["wit$agenda_entry:agenda_entry"]
+
+        let private contact_entity_types = ["wit$contact:contact"; "wit$contact:query_param_name"]
+
+        let private datetime_entity_types = ["wit$datetime:datetime";"wit$datetime:query_param_date"]
+
+        let private local_search_query_entity_types = ["wit$local_search_query:local_search_query";"wit$datetime:query_resource"]
+
+        let private entity_types = agenda_entry_entity_types @ contact_entity_types @ datetime_entity_types @ local_search_query_entity_types
 
         let private trait_types = ["domain"; "dialogue_act"]
 
