@@ -49,7 +49,7 @@ namespace Micah.NLU.GoogleHC
         {
             var token = await Credential.GetAccessTokenForRequestAsync();
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            var r = await httpClient.PostAsync("https://healthcare.googleapis.com/v1beta1/projects/seismic-bonfire-319022/locations/us-central1/services/nlp:analyzeEntities", new StringContent("{" + string.Format("'nlpService':'projects/{0}/locations/us-central1/services/nlp', 'documentContent':'{1}', 'licensedVocabularies':['SNOMEDCT_US','ICD10CM']", 
+            var r = await httpClient.PostAsync("https://healthcare.googleapis.com/v1beta1/projects/seismic-bonfire-319022/locations/us-central1/services/nlp:analyzeEntities", new StringContent("{" + string.Format("'nlpService':'projects/{0}/locations/us-central1/services/nlp', 'documentContent':'{1}'", 
                 Config("GOOGLE_PROJECT_ID"), document) + "}"));
             r.EnsureSuccessStatusCode();
             return await r.Content.ReadAsStringAsync();

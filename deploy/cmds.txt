@@ -1,0 +1,1 @@
+curl -x POST -H "Authorization: Bearer %GOOGLE_API_TOKEN%" -H "Content-Type: application/json; charset=utf-8" --data "{'nlpService': 'projects/%GOOGLE_PROJECT_ID%/locations/us-central1/nlp'; 'documentContent': 'Insulin regimen human 5 units IV administered.'}" https://healthcare.googleapis.com/v1beta1/projects/%GOOGLE_PROJECT_ID%/locations/us-central1/services/nlp:analyzeEntities

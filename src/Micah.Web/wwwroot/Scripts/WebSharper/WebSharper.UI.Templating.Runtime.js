@@ -1,8 +1,7 @@
-(function()
+(function(Global)
 {
  "use strict";
- var Global,WebSharper,UI,Templating,Runtime,Server,TemplateInitializer,Obj,TemplateInstances,Handler,ProviderBuilder,TemplateInstance,Client,Collections,Dictionary,IntelliFactory,Runtime$1,Arrays,Var$1,Operators,Doc,Client$1,Templates,Slice,BindVar,View,console,Activator,HashSet,Enumerator,Seq,System,Guid;
- Global=self;
+ var WebSharper,UI,Templating,Runtime,Server,TemplateInitializer,Obj,TemplateInstances,Handler,ProviderBuilder,TemplateInstance,Client,Collections,Dictionary,IntelliFactory,Runtime$1,Arrays,Unchecked,Var$1,Operators,Doc,Client$1,Templates,Slice,BindVar,View,console,Activator,HashSet,Enumerator,Seq,System,Guid;
  WebSharper=Global.WebSharper=Global.WebSharper||{};
  UI=WebSharper.UI=WebSharper.UI||{};
  Templating=UI.Templating=UI.Templating||{};
@@ -20,6 +19,7 @@
  IntelliFactory=Global.IntelliFactory;
  Runtime$1=IntelliFactory&&IntelliFactory.Runtime;
  Arrays=WebSharper&&WebSharper.Arrays;
+ Unchecked=WebSharper&&WebSharper.Unchecked;
  Var$1=UI&&UI.Var$1;
  Operators=WebSharper&&WebSharper.Operators;
  Doc=UI&&UI.Doc;
@@ -61,19 +61,20 @@
     f=Arrays.get(a,i);
     t=f[1];
     n=f[0];
-    !d.ContainsKey(n)?d.set_Item(n,t===0?{
-     $:8,
-     $0:n,
-     $1:Var$1.Create$1("")
-    }:t===1?{
-     $:13,
-     $0:n,
-     $1:Var$1.Create$1(0)
-    }:t===2?{
-     $:9,
-     $0:n,
-     $1:Var$1.Create$1(false)
-    }:Operators.FailWith("Invalid value type")):void 0;
+    if(!d.ContainsKey(n))
+     d.set_Item(n,Unchecked.Equals(t,0)?{
+      $:8,
+      $0:n,
+      $1:Var$1.Create$1("")
+     }:Unchecked.Equals(t,1)?{
+      $:13,
+      $0:n,
+      $1:Var$1.Create$1(0)
+     }:Unchecked.Equals(t,2)?{
+      $:9,
+      $0:n,
+      $1:Var$1.Create$1(false)
+     }:Operators.FailWith("Invalid value type"));
    }
    this.instance=new TemplateInstance.New({
     $:0,
@@ -264,21 +265,21 @@
   function c(name,ty)
   {
    var r;
-   return filledVars.Contains(name)?null:(r=ty===0?TemplateInitializer.GetOrAddHoleFor(key,name,function()
+   return filledVars.Contains(name)?null:(r=Unchecked.Equals(ty,0)?TemplateInitializer.GetOrAddHoleFor(key,name,function()
    {
     return{
      $:8,
      $0:name,
      $1:Var$1.Create$1("")
     };
-   }):ty===1?TemplateInitializer.GetOrAddHoleFor(key,name,function()
+   }):Unchecked.Equals(ty,1)?TemplateInitializer.GetOrAddHoleFor(key,name,function()
    {
     return{
      $:13,
      $0:name,
      $1:Var$1.Create$1(0)
     };
-   }):ty===2?TemplateInitializer.GetOrAddHoleFor(key,name,function()
+   }):Unchecked.Equals(ty,2)?TemplateInitializer.GetOrAddHoleFor(key,name,function()
    {
     return{
      $:9,
@@ -377,4 +378,4 @@
   };
  };
  Client.Box=Global.id;
-}());
+}(self));

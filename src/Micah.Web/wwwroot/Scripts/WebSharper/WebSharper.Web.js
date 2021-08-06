@@ -1,8 +1,7 @@
-(function()
+(function(Global)
 {
  "use strict";
- var Global,WebSharper,ClientSideJson,Provider,Obj,Web,Control,FSharpInlineControl,InlineControl,IntelliFactory,Runtime,Collections,LinkedList,Arrays,Dictionary,FSharpMap,List,Operators,Unchecked,FSharpSet,BalancedTree,Enumerator,Map,Seq,DateTimeOffset;
- Global=self;
+ var WebSharper,ClientSideJson,Provider,Obj,Web,Control,FSharpInlineControl,InlineControl,IntelliFactory,Runtime,Collections,LinkedList,Arrays,Dictionary,FSharpMap,List,Unchecked,Operators,FSharpSet,BalancedTree,Enumerator,Map,Seq,DateTimeOffset;
  WebSharper=Global.WebSharper=Global.WebSharper||{};
  ClientSideJson=WebSharper.ClientSideJson=WebSharper.ClientSideJson||{};
  Provider=ClientSideJson.Provider=ClientSideJson.Provider||{};
@@ -19,8 +18,8 @@
  Dictionary=Collections&&Collections.Dictionary;
  FSharpMap=Collections&&Collections.FSharpMap;
  List=WebSharper&&WebSharper.List;
- Operators=WebSharper&&WebSharper.Operators;
  Unchecked=WebSharper&&WebSharper.Unchecked;
+ Operators=WebSharper&&WebSharper.Operators;
  FSharpSet=Collections&&Collections.FSharpSet;
  BalancedTree=Collections&&Collections.BalancedTree;
  Enumerator=WebSharper&&WebSharper.Enumerator;
@@ -119,14 +118,15 @@
      if(from===null)
       {
        r$1=(dec(null))(x);
-       to?delete r$1[discr]:void 0;
+       if(to)
+        delete r$1[discr];
        o.$0=r$1;
       }
      else
-      if(kind===0)
+      if(Unchecked.Equals(kind,0))
        o[from]=(dec(null))(x[to]);
       else
-       if(kind===1)
+       if(Unchecked.Equals(kind,1))
         o[from]=x.hasOwnProperty(to)?{
          $:1,
          $0:(dec(null))(x[to])
@@ -173,7 +173,7 @@
     var o;
     function a(name,dec,kind)
     {
-     if(kind===0)
+     if(Unchecked.Equals(kind,0))
      {
       if(x.hasOwnProperty(name))
        o[name]=(dec(null))(x[name]);
@@ -181,19 +181,19 @@
        Operators.FailWith("Missing mandatory field: "+name);
      }
      else
-      if(kind===1)
+      if(Unchecked.Equals(kind,1))
        o[name]=x.hasOwnProperty(name)?{
         $:1,
         $0:(dec(null))(x[name])
        }:null;
       else
-       if(kind===2)
+       if(Unchecked.Equals(kind,2))
        {
         if(x.hasOwnProperty(name))
          o[name]=(dec(null))(x[name]);
        }
        else
-        if(kind===3)
+        if(Unchecked.Equals(kind,3))
         {
          if(x[name]===void 0)
           o[name]=(dec(null))(x[name]);
@@ -374,13 +374,16 @@
         break;
       }
      else
-      if(kind===0)
+      if(Unchecked.Equals(kind,0))
        o[to]=(enc(null))(x[from]);
       else
-       if(kind===1)
+       if(Unchecked.Equals(kind,1))
         {
          m=x[from];
-         m==null?void 0:o[to]=(enc(null))(m.$0);
+         if(m==null)
+          ;
+         else
+          o[to]=(enc(null))(m.$0);
         }
        else
         Operators.FailWith("Invalid field option kind");
@@ -402,22 +405,25 @@
     function a$1(name,enc,kind)
     {
      var m;
-     if(kind===0)
+     if(Unchecked.Equals(kind,0))
       o[name]=(enc(null))(x[name]);
      else
-      if(kind===1)
+      if(Unchecked.Equals(kind,1))
        {
         m=x[name];
-        m==null?void 0:o[name]=(enc(null))(m.$0);
+        if(m==null)
+         ;
+        else
+         o[name]=(enc(null))(m.$0);
        }
       else
-       if(kind===2)
+       if(Unchecked.Equals(kind,2))
        {
         if(x.hasOwnProperty(name))
          o[name]=(enc(null))(x[name]);
        }
        else
-        if(kind===3)
+        if(Unchecked.Equals(kind,3))
         {
          if(x[name]===void 0)
           o[name]=(enc(null))(x[name]);
@@ -491,4 +497,4 @@
    },self,this.funcName).apply(null,this.args);
   }
  },Control,InlineControl);
-}());
+}(self));

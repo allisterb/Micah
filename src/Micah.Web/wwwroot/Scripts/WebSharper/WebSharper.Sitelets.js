@@ -1,8 +1,7 @@
-(function()
+(function(Global)
 {
  "use strict";
- var Global,WebSharper,Sitelets,CorsAllows,StringEncoding,PathUtil,Route,List,Router,Obj,RouterModule,ListArrayConverter,RouterOperators,SC$1,Strings,String,List$1,Seq,Collections,Map,Arrays,IntelliFactory,Runtime,FSharpMap,Unchecked,Utils,console,Lazy,Nullable,Numeric,Operators,Concurrency,$,Char,System,Guid,Slice;
- Global=self;
+ var WebSharper,Sitelets,CorsAllows,StringEncoding,PathUtil,Route,List,Router,Obj,RouterModule,ListArrayConverter,RouterOperators,SC$1,Strings,String,List$1,Seq,Collections,Map,Arrays,IntelliFactory,Runtime,FSharpMap,Unchecked,Utils,console,Lazy,Nullable,Numeric,Operators,Concurrency,$,Char,System,Guid,Slice;
  WebSharper=Global.WebSharper=Global.WebSharper||{};
  Sitelets=WebSharper.Sitelets=WebSharper.Sitelets||{};
  CorsAllows=Sitelets.CorsAllows=Sitelets.CorsAllows||{};
@@ -213,9 +212,13 @@
   {
    var m$1,m$2;
    m$1=p.Method;
-   m$1!=null&&m$1.$==1?method=m$1:void 0;
+   if(m$1!=null&&m$1.$==1)
+    method=m$1;
    m$2=p.Body.f();
-   m$2===null?void 0:body=m$2;
+   if(m$2===null)
+    ;
+   else
+    body=m$2;
    queryArgs=Map.FoldBack(function(k,v,t)
    {
     return t.Add(k,v);
@@ -1237,10 +1240,10 @@
     return m$1($1[0],$1[1]);
    },a[1]);
   }
-  parseCases=Seq.collect(function($1)
+  parseCases=Arrays.ofSeq(Seq.collect(function($1)
   {
    return m($1[0],$1[1]);
-  },Seq.indexed(cases));
+  },Seq.indexed(cases)));
   return Router.New$1(function(path)
   {
    function m$1(i,m$2,s,fields)
@@ -1286,7 +1289,7 @@
    fields=p[2];
    p$1=Arrays.get(p[1],0);
    casePath=[Route.Segment(List$1.ofArray(p$1[1]),p$1[0])];
-   return!Unchecked.Equals(fields,null)&&fields.length===0?{
+   return fields.length==0?{
     $:1,
     $0:casePath
    }:(fieldParts=(((Runtime.Curried3(Arrays.map2))(m$1))(readFields(tag,value)))(fields),Arrays.forall(function(o)
@@ -2014,4 +2017,4 @@
    };
   });
  };
-}());
+}(self));

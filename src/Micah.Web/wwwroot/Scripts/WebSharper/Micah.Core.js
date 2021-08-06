@@ -1,8 +1,7 @@
-(function()
+(function(Global)
 {
  "use strict";
- var Global,Micah,Models,Sex,Address,Name,User,Patient,SymptomEntry,IntelliFactory,Runtime;
- Global=self;
+ var Micah,Models,Sex,Address,Name,User,Patient,SymptomEntry,IntelliFactory,Runtime;
  Micah=Global.Micah=Global.Micah||{};
  Models=Micah.Models=Micah.Models||{};
  Sex=Models.Sex=Models.Sex||{};
@@ -73,4 +72,4 @@
    Location:Location
   };
  };
-}());
+}(self));

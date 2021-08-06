@@ -1,8 +1,7 @@
-(function()
+(function(Global)
 {
  "use strict";
- var Global,WebSharper,Control,Observer,Message,HotStream,HotStream$1,Observable,Microsoft,FSharp,Control$1,ObservableModule,Event,Event$1,DelegateEvent,DelegateEvent$1,Obj,FSharpEvent,FSharpDelegateEvent,EventModule,MailboxProcessor,IntelliFactory,Runtime,Util,List,Seq,Unchecked,Arrays,Concurrency,TimeoutException,Operators,Collections,LinkedList;
- Global=self;
+ var WebSharper,Control,Observer,Message,HotStream,HotStream$1,Observable,Microsoft,FSharp,Control$1,ObservableModule,Event,Event$1,DelegateEvent,DelegateEvent$1,Obj,FSharpEvent,FSharpDelegateEvent,EventModule,MailboxProcessor,IntelliFactory,Runtime,Util,List,Seq,Unchecked,Arrays,Concurrency,TimeoutException,Operators,Collections,LinkedList;
  WebSharper=Global.WebSharper=Global.WebSharper||{};
  Control=WebSharper.Control=WebSharper.Control||{};
  Observer=Control.Observer=Control.Observer||{};
@@ -183,7 +182,8 @@
     {
      var currentIndex;
      index[0]++;
-     disp[0]!=null?disp[0].$0.Dispose():void 0;
+     if(disp[0]!=null)
+      disp[0].$0.Dispose();
      currentIndex=index[0];
      disp[0]={
       $:1,
@@ -208,16 +208,17 @@
      var $1,$2,v1,v2;
      $1=lv1[0];
      $2=lv2[0];
-     $1!=null&&$1.$==1?$2!=null&&$2.$==1?(v1=$1.$0,v2=$2.$0,Observable.Protect(function()
-     {
-      return f(v1,v2);
-     },function(a)
-     {
-      o.OnNext(a);
-     },function(a)
-     {
-      o.OnError(a);
-     })):void 0:void 0;
+     if($1!=null&&$1.$==1)
+      $2!=null&&$2.$==1?(v1=$1.$0,v2=$2.$0,Observable.Protect(function()
+      {
+       return f(v1,v2);
+      },function(a)
+      {
+       o.OnNext(a);
+      },function(a)
+      {
+       o.OnError(a);
+      })):void 0;
     }
     function dispose()
     {
@@ -604,7 +605,8 @@
     {
      var m;
      m=last[0];
-     m!=null&&m.$==1?o1.OnNext([m.$0,v]):void 0;
+     if(m!=null&&m.$==1)
+      o1.OnNext([m.$0,v]);
      last[0]={
       $:1,
       $0:v
@@ -647,7 +649,13 @@
    {
     return Unchecked.Equals(h,y);
    },this.Handlers);
-   o==null?void 0:(o$1=this.Handlers,o$1.splice.apply(o$1,[o.$0,1]));
+   if(o==null)
+    ;
+   else
+    {
+     o$1=this.Handlers;
+     o$1.splice.apply(o$1,[o.$0,1]);
+    }
   },
   AddHandler$1:function(h)
   {
@@ -687,7 +695,13 @@
    {
     return Unchecked.Equals(h,y);
    },this.Handlers);
-   o==null?void 0:(o$1=this.Handlers,o$1.splice.apply(o$1,[o.$0,1]));
+   if(o==null)
+    ;
+   else
+    {
+     o$1=this.Handlers;
+     o$1.splice.apply(o$1,[o.$0,1]);
+    }
   },
   AddHandler$1:function(h)
   {
@@ -777,13 +791,19 @@
   {
    var m;
    m=buf[0];
-   m!=null&&m.$==1?(buf[0]={
-    $:1,
-    $0:x
-   },ev.Trigger([m.$0,x])):buf[0]={
-    $:1,
-    $0:x
-   };
+   if(m!=null&&m.$==1)
+    {
+     buf[0]={
+      $:1,
+      $0:x
+     };
+     ev.Trigger([m.$0,x]);
+    }
+   else
+    buf[0]={
+     $:1,
+     $0:x
+    };
   }));
   return ev;
  };
@@ -830,7 +850,10 @@
   {
    var m;
    m=c(x);
-   m==null?void 0:r.event.Trigger(m.$0);
+   if(m==null)
+    ;
+   else
+    r.event.Trigger(m.$0);
   }));
   return r.event;
  };
@@ -846,7 +869,11 @@
   {
    var m;
    m=this.savedCont;
-   m!=null&&m.$==1?(this.savedCont=null,this.startAsync(m.$0)):void 0;
+   if(m!=null&&m.$==1)
+    {
+     this.savedCont=null;
+     this.startAsync(m.$0);
+    }
   },
   startAsync:function(a)
   {
@@ -945,7 +972,14 @@
     while(!Unchecked.Equals(m$1,null))
      {
       m$2=scanner(m$1.v);
-      m$2==null?m$1=m$1.n:($this.mailbox.Remove$1(m$1),m$1=null,found=m$2);
+      if(m$2==null)
+       m$1=m$1.n;
+      else
+       {
+        $this.mailbox.Remove$1(m$1);
+        m$1=null;
+        found=m$2;
+       }
      }
     m=found;
     return m!=null&&m.$==1?Concurrency.Bind(m.$0,function(a$1)
@@ -1116,20 +1150,26 @@
   {
    var $this,b;
    $this=this;
-   this.started?Operators.FailWith("The MailboxProcessor has already been started."):(this.started=true,$this.startAsync((b=null,Concurrency.Delay(function()
-   {
-    return Concurrency.TryWith(Concurrency.Delay(function()
+   if(this.started)
+    Operators.FailWith("The MailboxProcessor has already been started.");
+   else
     {
-     return Concurrency.Bind($this.initial($this),function()
+     this.started=true;
+     $this.startAsync((b=null,Concurrency.Delay(function()
      {
-      return Concurrency.Return(null);
-     });
-    }),function(a)
-    {
-     $this.errorEvent.event.Trigger(a);
-     return Concurrency.Zero();
-    });
-   }))));
+      return Concurrency.TryWith(Concurrency.Delay(function()
+      {
+       return Concurrency.Bind($this.initial($this),function()
+       {
+        return Concurrency.Return(null);
+       });
+      }),function(a)
+      {
+       $this.errorEvent.event.Trigger(a);
+       return Concurrency.Zero();
+      });
+     })));
+    }
   },
   set_DefaultTimeout:function(v)
   {
@@ -1175,10 +1215,13 @@
   this.mailbox=new LinkedList.New();
   this.savedCont=null;
   m=this.token;
-  m==null?void 0:Concurrency.Register(m.$0,function()
-  {
-   callback();
-  });
+  if(m==null)
+   ;
+  else
+   Concurrency.Register(m.$0,function()
+   {
+    callback();
+   });
   this.DefaultTimeout=-1;
  },MailboxProcessor);
-}());
+}(self));

@@ -1,8 +1,7 @@
-(function()
+(function(Global)
 {
  "use strict";
- var Global,WebSharper,Collections,BalancedTree,Tree,Pair,MapUtil,Obj,FSharpMap,Map,FSharpSet,Set,ListEnumerator,List,LinkedListEnumerator,LinkedList,Grouping,FsComparer,ProjectionComparer,CompoundComparer,ReverseComparer,OrderedEnumerable,Linq,Query,Arrays,Seq,Unchecked,List$1,IntelliFactory,Runtime,Enumerator,Operators,HashSet,Dictionary,Nullable,Option;
- Global=self;
+ var WebSharper,Collections,BalancedTree,Tree,Pair,MapUtil,Obj,FSharpMap,Map,FSharpSet,Set,ListEnumerator,List,LinkedListEnumerator,LinkedList,Grouping,FsComparer,ProjectionComparer,CompoundComparer,ReverseComparer,OrderedEnumerable,Linq,Query,Arrays,Seq,Unchecked,List$1,IntelliFactory,Runtime,Enumerator,Operators,HashSet,Dictionary,Nullable,Option;
  WebSharper=Global.WebSharper=Global.WebSharper||{};
  Collections=WebSharper.Collections=WebSharper.Collections||{};
  BalancedTree=Collections.BalancedTree=Collections.BalancedTree||{};
@@ -108,7 +107,10 @@
    else
     {
      m=Unchecked.Compare(k,t$1.Node);
-     m===0?loop=false:m===1?(spine.unshift([true,t$1.Node,t$1.Left]),t$1=t$1.Right):(spine.unshift([false,t$1.Node,t$1.Right]),t$1=t$1.Left);
+     if(m===0)
+      loop=false;
+     else
+      m===1?(spine.unshift([true,t$1.Node,t$1.Left]),t$1=t$1.Right):(spine.unshift([false,t$1.Node,t$1.Right]),t$1=t$1.Left);
     }
   return[t$1,spine];
  };
@@ -652,8 +654,14 @@
    var before,after;
    before=node.p;
    after=node.n;
-   Unchecked.Equals(before,null)?this.n=after:before.n=after;
-   Unchecked.Equals(after,null)?this.p=before:after.p=before;
+   if(Unchecked.Equals(before,null))
+    this.n=after;
+   else
+    before.n=after;
+   if(Unchecked.Equals(after,null))
+    this.p=before;
+   else
+    after.p=before;
    this.c=this.c-1;
   },
   GetEnumerator$1:function()
@@ -729,9 +737,11 @@
     n:before,
     v:value
    };
-   Unchecked.Equals(before.p,null)?this.n=node:void 0;
+   if(Unchecked.Equals(before.p,null))
+    this.n=node;
    before.p=node;
-   !Unchecked.Equals(after,null)?after.n=node:void 0;
+   if(!Unchecked.Equals(after,null))
+    after.n=node;
    this.c=this.c+1;
    return node;
   },
@@ -744,9 +754,11 @@
     n:before,
     v:value
    };
-   Unchecked.Equals(after.n,null)?this.p=node:void 0;
+   if(Unchecked.Equals(after.n,null))
+    this.p=node;
    after.n=node;
-   !Unchecked.Equals(before,null)?before.p=node:void 0;
+   if(!Unchecked.Equals(before,null))
+    before.p=node;
    this.c=this.c+1;
    return node;
   },
@@ -771,11 +783,16 @@
   this.n=null;
   this.p=null;
   ie=Enumerator.Get(coll);
-  ie.MoveNext()?(this.n={
-   p:null,
-   n:null,
-   v:ie.Current()
-  },this.p=this.n,this.c=1):void 0;
+  if(ie.MoveNext())
+   {
+    this.n={
+     p:null,
+     n:null,
+     v:ie.Current()
+    };
+    this.p=this.n;
+    this.c=1;
+   }
   while(ie.MoveNext())
    {
     node={
@@ -1577,4 +1594,4 @@
  {
   Obj.New.call(this);
  },Query);
-}());
+}(self));
