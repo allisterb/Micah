@@ -194,6 +194,7 @@ namespace Micah.CLI
                 }
                 dynamic j = JObject.Parse(r.Content.ReadAsStringAsync().Result);
                 var intents = j.intents;
+                string name = "";
                 if (intents[0].name == "query")
                 {
                     double ic = intents[0].confidence;
@@ -219,6 +220,7 @@ namespace Micah.CLI
                             {
                                 string v = e.value;
                                 double c = e.confidence;
+                                name = v;
                                 Info("Query param: {0}. Value: {1}. Confidence: {2}.", "name", v, c);
                             }
 
@@ -226,6 +228,7 @@ namespace Micah.CLI
                             {
                                 string v = e.value;
                                 double c = e.confidence;
+                                name = v;
                                 Info("Query param: {0}. Value: {1}. Confidence: {2}.", "family_name", v, c);
                             }
 
@@ -233,6 +236,7 @@ namespace Micah.CLI
                             {
                                 string v = e.value;
                                 double c = e.confidence;
+                                name = v;
                                 Info("Query param: {0}. Value: {1}. Confidence: {2}.", "name(inferred)", v, c);
                             }
                         }
@@ -248,6 +252,17 @@ namespace Micah.CLI
                         }
 
                     }
+                    var client = new FHIR3Client("https://stu3.test.pyrohealth.net/fhir");
+                    var b = client.SearchPatients(new[] { "name" + "=" + name }).Result;
+                     
+                    
+                    
+                        foreach (var ec in b.Entry)
+                        {
+                            var p = (Hl7.Fhir.Model.Patient)ec.Resource;
+                            WriteInfo("Id:{0}. Name: {1}.", p.Id, p.Name[0]);
+                        }
+                    
                 }
                 
             }
