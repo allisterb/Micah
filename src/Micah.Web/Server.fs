@@ -15,7 +15,8 @@ open Micah
 open Micah.Models
 open Micah.NLU.ExpertAI
 open Micah.NLU.GoogleHC
-    
+open Micah.FHIR
+
 module Server =        
     
     let private pgdb =
@@ -322,11 +323,23 @@ module Server =
             | Choice2Of2 exn -> errex "Exception raised retrieving relations for sentence {0}." exn [sentence]; Error(exn.Message))
 
     [<Rpc>]
-    let getGoogleNLU() =
-        async {
-                let! r = GoogleHCApi.AnalyzeEntities2("Patient requires MRI on right shoulder to rule out supraspinatus tear.") |> Async.AwaitTask
-                ()
-        } |> Async.Start
+    let getGoogHCNLUEntities(text:string) = 
+        GoogleHCApi.AnalyzeEntities2(text) 
+        |> Async.AwaitTask
+        |> Async.Catch
+        |> Async.map(function 
+            | Choice1Of2 r -> Ok (r.ToString()) 
+            | Choice2Of2 exn -> errex "Exception raised retrieving Google HC NLU entities for sentence {0}." exn [text]; Error(exn.Message))
+        
+    [<Rpc>]
+    let getFHIRPatients(endpoint:string) (q:string array) = 
+        let client = FHIR3Client(endpoint)
+        client.SearchPatients(q) 
+        |> Async.AwaitTask
+        |> Async.Catch
+        |> Async.map(function 
+            | Choice1Of2 r -> Ok (r.ToString()) 
+            | Choice2Of2 exn -> errex "Exception raised retrieving patients for query {0}." exn [q]; Error(exn.Message))
         
         
         

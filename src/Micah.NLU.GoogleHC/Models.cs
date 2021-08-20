@@ -62,7 +62,7 @@ namespace Micah.NLU.GoogleHC.Models
         [JsonProperty("confidence")]
         public double Confidence { get; set; }
 
-        public override string ToString() => string.Format("(Id:{0}, Type:{1}, TemporalAssessment:{2}, CertaintyAssessment:{3}, Subject:{4}, Confidence:{5})", MentionId, Type, TemporalAssessment, CertaintyAssessment, Subject, Confidence);
+        public override string ToString() => string.Format("(Id:{0}, Type:{1}, Text:{2}, TemporalAssessment:{3}, CertaintyAssessment:{4}, Subject:{5}, Confidence:{6})", MentionId, Type, Text, TemporalAssessment, CertaintyAssessment, Subject, Confidence);
     }
 
     public partial class CertaintyAssessment
@@ -92,7 +92,7 @@ namespace Micah.NLU.GoogleHC.Models
         [JsonProperty("beginOffset")]
         public long BeginOffset { get; set; }
 
-        public override string ToString() => string.Format("(Text: {0})", Content);
+        public override string ToString() => Content;
     }
 
     public partial class Relationship

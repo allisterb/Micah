@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 using CO = Colorful.Console;
 using Figgle;
@@ -184,7 +185,66 @@ namespace Micah.CLI
             HttpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + Config("WIT2"));
             var r = HttpClient.GetAsync("https://api.wit.ai/message?q=" + o.Text).Result;
             r.EnsureSuccessStatusCode();
-            WriteInfo(r.Content.ReadAsStringAsync().Result);
+            var text = r.Content.ReadAsStringAsync().Result; 
+            if (o.Query)
+            {
+                if (o.Debug)
+                {
+                    WriteInfo(text);
+                }
+                dynamic j = JObject.Parse(r.Content.ReadAsStringAsync().Result);
+                var intents = j.intents;
+                if (intents[0].name == "query")
+                {
+                    double ic = intents[0].confidence;
+                    Info("Query intent confidence: {0}.", ic);
+                    dynamic entities = j.entities;
+                    foreach(JProperty en in entities)
+                    {
+                        JArray a = (JArray) en.Value;
+                        dynamic e = a[0];
+                        if (e.name == "wit$local_search_query")
+                        {
+                            if (e.role == "query_resource")
+                            {
+                                string v = e.value;
+                                double c = e.confidence;
+                                Info("Query resource: {0}. Confidence: {1}.", v, c);
+                            }
+                        } 
+
+                        if (e.name == "wit$contact")
+                        {
+                            if (e.role == "query_param_name")
+                            {
+                                string v = e.value;
+                                double c = e.confidence;
+                                Info("Query param: {0}. Value: {1}. Confidence: {2}.", "name", v, c);
+                            }
+
+                            else if (e.role == "query_param_family")
+                            {
+                                string v = e.value;
+                                double c = e.confidence;
+                                Info("Query param: {0}. Value: {1}. Confidence: {2}.", "family_name", v, c);
+                            }
+
+                            else
+                            {
+                                string v = e.value;
+                                double c = e.confidence;
+                                Info("Query param: {0}. Value: {1}. Confidence: {2}.", "name(inferred)", v, c);
+                            }
+                        }
+
+                        if (e.name == "wit$number")
+                        { 
+                        }
+
+                    }
+                }
+                
+            }
             Exit(ExitResult.SUCCESS);
         }
 

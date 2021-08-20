@@ -167,7 +167,6 @@ module Client =
                 debug <| sprintf "Utterances: %A" Utterances
                 debug <| sprintf "Questions: %A" Questions
                 for p in Props do debug <| sprintf "%s: %A"  p.Key p.Value
-                do Server.getGoogleNLU()
             | Text.DebugEntities e ->
                 async {
                     match! Server.getEntities e with
@@ -216,6 +215,16 @@ module Client =
                         for e in t do debug <| sprintf "%A" e
                         echo "Behavioral Traits:"
                         for tr in t do echo <| sprintf "<span style='color:white;background-color:#FF4500'>%A</span>" tr
+                    | Error e -> debug e
+                } |> CUI.Wait
+
+            | Text.DebugHCNLU dt ->
+                async {
+                    match! Server.getGoogHCNLUEntities dt with
+                    | Ok e -> 
+                        debug <| sprintf "Google HealthCare NLU entities: %A" e
+                        echo <| sprintf "Google HealthCare NLU entities: %A" e
+                        
                     | Error e -> debug e
                 } |> CUI.Wait
 

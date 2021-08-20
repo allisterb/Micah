@@ -48,6 +48,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MIcah.CLI", "MIcah.CLI\MIca
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{283B44CB-9F6E-4402-B5AF-EADCC516CD92}"
 	ProjectSection(SolutionItems) = preProject
+		..\docs\presentation\index-sprint1.html = ..\docs\presentation\index-sprint1.html
 		..\docs\presentation\index.html = ..\docs\presentation\index.html
 	EndProjectSection
 EndProject

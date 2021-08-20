@@ -52,6 +52,7 @@
     <ProjectReference Include="..\Micah.Base.Fs\Micah.Base.Fs.fsproj" />
     <ProjectReference Include="..\Micah.Base\Micah.Base.csproj" />
     <ProjectReference Include="..\Micah.Core\Micah.Core.fsproj" />
+    <ProjectReference Include="..\Micah.FHIR\Micah.FHIR.csproj" />
     <ProjectReference Include="..\Micah.Logger.Serilog\Micah.Logger.Serilog.csproj" />
     <ProjectReference Include="..\Micah.NLU.ExpertAI\Micah.NLU.ExpertAI.csproj" />
     <ProjectReference Include="..\Micah.NLU.GoogleHC\Micah.NLU.GoogleHC.csproj" />

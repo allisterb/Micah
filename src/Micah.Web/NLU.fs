@@ -173,6 +173,11 @@ module NLU =
             | s when s.StartsWith "debug-entry " -> let et = s.Replace("debug-entry ", "") in Some et
             | _ -> None
 
+        let (|DebugHCNLU|_|) : string -> string option=
+            function
+            | s when s.StartsWith "debug-hcnlu " -> let dt = s.Replace("debug-hcnlu ", "") in Some dt
+            | _ -> None
+
         let (|Voices|_|) =
             function
             | "voices" -> Some ()

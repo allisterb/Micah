@@ -1845,6 +1845,13 @@
    $0:null
   }:null;
  };
+ Text.DebugHCNLU=function(a)
+ {
+  return Strings.StartsWith(a,"debug-hcnlu ")?{
+   $:1,
+   $0:Strings.Replace(a,"debug-hcnlu ","")
+  }:null;
+ };
  Text.DebugEntry=function(a)
  {
   return Strings.StartsWith(a,"debug-entry ")?{
@@ -3100,7 +3107,7 @@
    wje=WritingJournlEntry.New("l",Date.now(),writingPrompt,text,triples,lemmas,entities,behaviouralTraits,emotionalTraits);
    Concurrency.Start((b$2=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addWritingJournalEntry:597967111",[wje]),function(a$30)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addWritingJournalEntry:-1451704014",[wje]),function(a$30)
     {
      return a$30.$==1?Concurrency.Zero():Concurrency.Zero();
     });
@@ -3113,7 +3120,7 @@
    return Concurrency.Delay(function()
    {
     add("journalentry_text",e);
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getTriples:-1840471723",[e]),function(a$30)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getTriples:-890486326",[e]),function(a$30)
     {
      var triples;
      return a$30.$==1?Concurrency.Return({
@@ -3140,7 +3147,7 @@
       return Concurrency.Zero();
      }),Concurrency.Delay(function()
      {
-      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getMainLemmas:753764249",[e]),function(a$31)
+      return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getMainLemmas:-1767186894",[e]),function(a$31)
       {
        var e$1,lemmas;
        return a$31.$==1?(e$1=a$31.$0,(Journal.debug(e$1),Concurrency.Return({
@@ -3172,7 +3179,7 @@
          return Concurrency.Zero();
         }),Concurrency.Delay(function()
         {
-         return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEntities:-1213895806",[e]),function(a$32)
+         return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEntities:2130536228",[e]),function(a$32)
          {
           var e$2,entities;
           return a$32.$==1?(e$2=a$32.$0,(Journal.debug(e$2),Concurrency.Return({
@@ -3204,7 +3211,7 @@
             return Concurrency.Zero();
            }),Concurrency.Delay(function()
            {
-            return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEmotionalTraits:1295927266",[e]),function(a$33)
+            return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEmotionalTraits:-424670250",[e]),function(a$33)
             {
              var e$3,t$1;
              return a$33.$==1?(e$3=a$33.$0,(Journal.debug(e$3),Concurrency.Return({
@@ -3236,7 +3243,7 @@
                return Concurrency.Zero();
               }),Concurrency.Delay(function()
               {
-               return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getBehavioralTraits:1802192140",[e]),function(a$34)
+               return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getBehavioralTraits:1085574977",[e]),function(a$34)
                {
                 var e$4,t$2;
                 return a$34.$==1?(e$4=a$34.$0,(Journal.debug(e$4),Concurrency.Return({
@@ -3529,7 +3536,7 @@
    sayRandom(NLG.waitRetrievePhrases(),"user name");
    Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getUser:-1892076466",[u]),function(a$28)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getUser:-443569081",[u]),function(a$28)
     {
      var user;
      function setupBox1(b$2)
@@ -3582,9 +3589,9 @@
        add("user",u);
        Concurrency.Start((b$2=null,Concurrency.Delay(function()
        {
-        return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.updateUserLastLogin:2135349633",[user.Name]),function()
+        return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.updateUserLastLogin:-1116603893",[user.Name]),function()
         {
-         return user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.humanize:-77584724",[user.LastLoggedIn.$0]),function(a$29)
+         return user.LastLoggedIn!=null?Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.humanize:141216927",[user.LastLoggedIn.$0]),function(a$29)
          {
           say((function($17)
           {
@@ -3669,7 +3676,7 @@
    Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
     sayRandom(NLG.waitAddPhrases(),"user");
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addUser:-1830898429",[u]),function(a$28)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addUser:598940227",[u]),function(a$28)
     {
      return a$28.$==1?(ClientExtensions.error((((Runtime.Curried3(function($17,$18,$19)
      {
@@ -3727,7 +3734,7 @@
     addUser($4);
    }):m.$==1&&(a$16=User$1(m.$0),a$16!=null&&a$16.$==1&&(a$17=NLU$1.Intent$1("hello",a$16.$0),a$17!=null&&a$17.$==1&&(a$17.$0[0]==null&&(a$18=NLU$1.Entity1Of1("name",a$17.$0[1]),a$18!=null&&a$18.$==1&&(m.$1.$==0&&($5=a$18.$0,true))))))?Concurrency.Start((b=null,Concurrency.Delay(function()
    {
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getUser:-1892076466",[$5.get_Value()]),function(a$28)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getUser:-443569081",[$5.get_Value()]),function(a$28)
     {
      return a$28==null?(say((function($17)
      {
@@ -3804,7 +3811,7 @@
    return Concurrency.Start((b$1=null,Concurrency.Delay(function()
    {
     sayRandom(NLG.waitAddPhrases(),"symptom entry");
-    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addSymptomJournalEntry:-299138545",[user().Name,s,l,m$1]),function(a$7)
+    return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.addSymptomJournalEntry:-1727230397",[user().Name,s,l,m$1]),function(a$7)
     {
      return a$7.$==1?(say(function($8)
      {
@@ -4264,7 +4271,7 @@
   SC$9.$cctor=Global.ignore;
   function main(term,command)
   {
-   var e,a,e$1,b,a$1,e$2,b$1,a$2,dt,b$2,a$3,et,b$3,a$4,bt,b$4,$1,voices,$2,a$5,a$6,a$7,a$8,a$9,a$10,m,b$5,Dialogue$1,a$11,a$12,p;
+   var e,a,e$1,b,a$1,e$2,b$1,a$2,dt,b$2,a$3,et,b$3,a$4,bt,b$4,a$5,dt$1,b$5,$1,voices,$2,a$6,a$7,a$8,a$9,a$10,a$11,m,b$6,Dialogue$1,a$12,a$13,p;
    function push(m$1)
    {
     Client.Utterances().unshift(m$1);
@@ -4320,13 +4327,13 @@
     }
    else
     {
-     a$11=Text.Blank(command);
-     if(a$11!=null&&a$11.$==1)
+     a$12=Text.Blank(command);
+     if(a$12!=null&&a$12.$==1)
       return Client["say'"]("Tell me what you want me to do or ask me a question.");
      else
       {
-       a$12=Text.Debug(command);
-       if(a$12!=null&&a$12.$==1)
+       a$13=Text.Debug(command);
+       if(a$13!=null&&a$13.$==1)
         {
          Client.debug((function($3)
          {
@@ -4353,22 +4360,22 @@
              return $3(Utils.toSafe($4)+": "+Utils.prettyPrint($5));
             }))(Global.id))(p.K))(p.V));
            }
+          return;
          }
          finally
          {
           e.Dispose();
          }
-         return(new AjaxRemotingProvider.New()).Send("Micah.Web:Micah.Web.Server.getGoogleNLU:6",[]);
         }
        else
         {
          a=Text.DebugEntities(command);
          return a!=null&&a.$==1?(e$1=a.$0,Client.CUI().Wait((b=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEntities:-1213895806",[e$1]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEntities:2130536228",[e$1]),function(a$14)
           {
            var entities;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(entities=a$13.$0,Concurrency.Combine(Concurrency.For(entities,function(a$14)
+           return a$14.$==1?(Client.debug(a$14.$0),Concurrency.Zero()):(entities=a$14.$0,Concurrency.Combine(Concurrency.For(entities,function(a$15)
            {
             Client.debug((function($3)
             {
@@ -4376,12 +4383,12 @@
              {
               return $3(Micah$Web_GeneratedPrintf.p($4));
              };
-            }(Global.id))(a$14));
+            }(Global.id))(a$15));
             return Concurrency.Zero();
            }),Concurrency.Delay(function()
            {
             Client.echo("Entities:");
-            return Concurrency.For(entities,function(a$14)
+            return Concurrency.For(entities,function(a$15)
             {
              Client.echo((function($3)
              {
@@ -4389,17 +4396,17 @@
               {
                return $3("<span style='color:white;background-color:#7B68EE'>"+Micah$Web_GeneratedPrintf.p($4)+"</span>");
               };
-             }(Global.id))(a$14));
+             }(Global.id))(a$15));
              return Concurrency.Zero();
             });
            })));
           });
          })))):(a$1=Text.DebugLemmas(command),a$1!=null&&a$1.$==1?(e$2=a$1.$0,Client.CUI().Wait((b$1=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getMainLemmas:753764249",[e$2]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getMainLemmas:-1767186894",[e$2]),function(a$14)
           {
            var lemmas;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(lemmas=a$13.$0,Concurrency.Combine(Concurrency.For(lemmas,function(a$14)
+           return a$14.$==1?(Client.debug(a$14.$0),Concurrency.Zero()):(lemmas=a$14.$0,Concurrency.Combine(Concurrency.For(lemmas,function(a$15)
            {
             Client.debug((function($3)
             {
@@ -4407,12 +4414,12 @@
              {
               return $3(Micah$Web_GeneratedPrintf.p$1($4));
              };
-            }(Global.id))(a$14));
+            }(Global.id))(a$15));
             return Concurrency.Zero();
            }),Concurrency.Delay(function()
            {
             Client.echo("Lemmas:");
-            return Concurrency.For(lemmas,function(a$14)
+            return Concurrency.For(lemmas,function(a$15)
             {
              Client.echo((function($3)
              {
@@ -4420,19 +4427,19 @@
               {
                return $3("<span style='color:white;background-color:#FFC0CB'>"+Micah$Web_GeneratedPrintf.p$1($4)+"</span>");
               };
-             }(Global.id))(a$14));
+             }(Global.id))(a$15));
              return Concurrency.Zero();
             });
            })));
           });
          })))):(a$2=Text.DebugTriples(command),a$2!=null&&a$2.$==1?(dt=a$2.$0,Client.CUI().Wait((b$2=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getTriples:-1840471723",[dt]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getTriples:-890486326",[dt]),function(a$14)
           {
            var c;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(c=a$13.$0,Concurrency.Combine(Concurrency.For(c,function(a$14)
+           return a$14.$==1?(Client.debug(a$14.$0),Concurrency.Zero()):(c=a$14.$0,Concurrency.Combine(Concurrency.For(c,function(a$15)
            {
-            return Concurrency.For(a$14,function(a$15)
+            return Concurrency.For(a$15,function(a$16)
             {
              Client.debug((function($3)
              {
@@ -4440,13 +4447,13 @@
               {
                return $3(Micah$Web_GeneratedPrintf.p$2($4));
               };
-             }(Global.id))(a$15));
+             }(Global.id))(a$16));
              return Concurrency.Zero();
             });
            }),Concurrency.Delay(function()
            {
             Client.echo("Triples:");
-            return Concurrency.For(c,function(a$14)
+            return Concurrency.For(c,function(a$15)
             {
              Client.echo((function($3)
              {
@@ -4457,17 +4464,17 @@
                 return Micah$Web_GeneratedPrintf.p$2($5);
                },$4)+"</span>");
               };
-             }(Global.id))(a$14));
+             }(Global.id))(a$15));
              return Concurrency.Zero();
             });
            })));
           });
          })))):(a$3=Text.DebugEmotionalTraits(command),a$3!=null&&a$3.$==1?(et=a$3.$0,Client.CUI().Wait((b$3=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEmotionalTraits:1295927266",[et]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getEmotionalTraits:-424670250",[et]),function(a$14)
           {
            var t;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
+           return a$14.$==1?(Client.debug(a$14.$0),Concurrency.Zero()):(t=a$14.$0,Concurrency.Combine(Concurrency.For(t,function(a$15)
            {
             Client.debug((function($3)
             {
@@ -4475,12 +4482,12 @@
              {
               return $3(Micah$Web_GeneratedPrintf.p$10($4));
              };
-            }(Global.id))(a$14));
+            }(Global.id))(a$15));
             return Concurrency.Zero();
            }),Concurrency.Delay(function()
            {
             Client.echo("Emotional Traits:");
-            return Concurrency.For(t,function(a$14)
+            return Concurrency.For(t,function(a$15)
             {
              Client.echo((function($3)
              {
@@ -4488,17 +4495,17 @@
               {
                return $3("<span style='color:white;background-color:#FF4500'>"+Micah$Web_GeneratedPrintf.p$10($4)+"</span>");
               };
-             }(Global.id))(a$14));
+             }(Global.id))(a$15));
              return Concurrency.Zero();
             });
            })));
           });
          })))):(a$4=Text.DebugBehavioralTraits(command),a$4!=null&&a$4.$==1?(bt=a$4.$0,Client.CUI().Wait((b$4=null,Concurrency.Delay(function()
          {
-          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getBehavioralTraits:1802192140",[bt]),function(a$13)
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getBehavioralTraits:1085574977",[bt]),function(a$14)
           {
            var t;
-           return a$13.$==1?(Client.debug(a$13.$0),Concurrency.Zero()):(t=a$13.$0,Concurrency.Combine(Concurrency.For(t,function(a$14)
+           return a$14.$==1?(Client.debug(a$14.$0),Concurrency.Zero()):(t=a$14.$0,Concurrency.Combine(Concurrency.For(t,function(a$15)
            {
             Client.debug((function($3)
             {
@@ -4506,12 +4513,12 @@
              {
               return $3(Micah$Web_GeneratedPrintf.p$11($4));
              };
-            }(Global.id))(a$14));
+            }(Global.id))(a$15));
             return Concurrency.Zero();
            }),Concurrency.Delay(function()
            {
             Client.echo("Behavioral Traits:");
-            return Concurrency.For(t,function(a$14)
+            return Concurrency.For(t,function(a$15)
             {
              Client.echo((function($3)
              {
@@ -4519,10 +4526,29 @@
               {
                return $3("<span style='color:white;background-color:#FF4500'>"+Micah$Web_GeneratedPrintf.p$11($4)+"</span>");
               };
-             }(Global.id))(a$14));
+             }(Global.id))(a$15));
              return Concurrency.Zero();
             });
            })));
+          });
+         })))):(a$5=Text.DebugHCNLU(command),a$5!=null&&a$5.$==1?(dt$1=a$5.$0,Client.CUI().Wait((b$5=null,Concurrency.Delay(function()
+         {
+          return Concurrency.Bind((new AjaxRemotingProvider.New()).Async("Micah.Web:Micah.Web.Server.getGoogHCNLUEntities:-373969088",[dt$1]),function(a$14)
+          {
+           var e$3;
+           return a$14.$==1?(Client.debug(a$14.$0),Concurrency.Zero()):(e$3=a$14.$0,Client.debug((function($3)
+           {
+            return function($4)
+            {
+             return $3("Google HealthCare NLU entities: "+Utils.prettyPrint($4));
+            };
+           }(Global.id))(e$3)),Client.echo((function($3)
+           {
+            return function($4)
+            {
+             return $3("Google HealthCare NLU entities: "+Utils.prettyPrint($4));
+            };
+           }(Global.id))(e$3)),Concurrency.Zero());
           });
          })))):($1=Text.Voices(command),$1!=null&&$1.$==1?(voices=ClientExtensions.toArray(ClientExtensions.speechSynthesis().getVoices()),Client["say'"]((function($3)
          {
@@ -4536,28 +4562,28 @@
           {
            return $3("Voice "+Global.String($4)+". Name: "+Utils.toSafe($5)+", Local: "+Utils.prettyPrint($6)+".");
           },4))(Global.id))(i))(v.name))(v.localService));
-         },voices)):Client.ClientState().$==1?(a$5=Text.QuickHello(command),(a$5!=null&&a$5.$==1?($2=a$5.$0,true):(a$6=Text.QuickHelp(command),a$6!=null&&a$6.$==1?($2=a$6.$0,true):(a$7=Text.QuickYes(command),a$7!=null&&a$7.$==1?($2=a$7.$0,true):(a$8=Text.QuickNo(command),a$8!=null&&a$8.$==1?($2=a$8.$0,true):(a$9=Text.QuickNumber(command),a$9!=null&&a$9.$==1&&($2=a$9.$0,true))))))?(Client.debug((function($3)
+         },voices)):Client.ClientState().$==1?(a$6=Text.QuickHello(command),(a$6!=null&&a$6.$==1?($2=a$6.$0,true):(a$7=Text.QuickHelp(command),a$7!=null&&a$7.$==1?($2=a$7.$0,true):(a$8=Text.QuickYes(command),a$8!=null&&a$8.$==1?($2=a$8.$0,true):(a$9=Text.QuickNo(command),a$9!=null&&a$9.$==1?($2=a$9.$0,true):(a$10=Text.QuickNumber(command),a$10!=null&&a$10.$==1&&($2=a$10.$0,true))))))?(Client.debug((function($3)
          {
           return function($4)
           {
            return $3("Quick Text: "+Micah$Web_GeneratedPrintf.p$12($4)+".");
           };
-         }(Global.id))($2)),Main.update(push($2)),Client.set_ClientState(ClientState.ClientReady)):(a$10=Text.JournalEntry(command),a$10!=null&&a$10.$==1?(m=a$10.$0,Client.debug((function($3)
+         }(Global.id))($2)),Main.update(push($2)),Client.set_ClientState(ClientState.ClientReady)):(a$11=Text.JournalEntry(command),a$11!=null&&a$11.$==1?(m=a$11.$0,Client.debug((function($3)
          {
           return function($4)
           {
            return $3("Journal entry: "+Micah$Web_GeneratedPrintf.p$12($4)+".");
           };
-         }(Global.id))(m)),Main.update(push(m)),Client.set_ClientState(ClientState.ClientReady)):Client.CUI().Wait((b$5=null,Concurrency.Delay(function()
+         }(Global.id))(m)),Main.update(push(m)),Client.set_ClientState(ClientState.ClientReady)):Client.CUI().Wait((b$6=null,Concurrency.Delay(function()
          {
           Client.set_ClientState(ClientState.ClientUnderstand);
           Text.getUtterance(command,function(meaning)
           {
-           var a$13,m$1;
-           a$13=Text.HasUtterance(meaning);
-           if(a$13!=null&&a$13.$==1)
+           var a$14,m$1;
+           a$14=Text.HasUtterance(meaning);
+           if(a$14!=null&&a$14.$==1)
             {
-             m$1=a$13.$0;
+             m$1=a$14.$0;
              Client.debug(((((Runtime.Curried(function($3,$4,$5,$6)
              {
               return $3("Text: Intent: "+Micah$Web_GeneratedPrintf.p$13($4)+", Traits: "+Micah$Web_GeneratedPrintf.p$16($5)+", Entities: "+Micah$Web_GeneratedPrintf.p$18($6)+".");
@@ -4572,7 +4598,7 @@
           });
           Client.set_ClientState(ClientState.ClientReady);
           return Concurrency.Zero();
-         }))))):Client.ClientState().$==0?ClientExtensions.error("Client is not initialized."):Client["say'"]("I'm still trying to understand what you said before."))))));
+         }))))):Client.ClientState().$==0?ClientExtensions.error("Client is not initialized."):Client["say'"]("I'm still trying to understand what you said before.")))))));
         }
       }
     }

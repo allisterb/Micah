@@ -1,7 +1,11 @@
 extern alias stu3;
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+
 using TTask = System.Threading.Tasks.Task;
 
 using stu3::Hl7.Fhir.Rest;
@@ -118,6 +122,35 @@ namespace Micah.FHIR
         }
 
         public async Task<Bundle> SearchPatients(string[] where, string orderBy = null, string include = null, int limit = -1) => await Search<Patient>(where, orderBy, include, limit);
+        
+        public async Task<Bundle> SearchPatients(string q)
+        {
+            Dictionary<string, object> Parse(string o)
+            {
+                Dictionary<string, object> options = new Dictionary<string, object>();
+                Regex re = new Regex(@"(\w+)\=([^\,]+)", RegexOptions.Compiled);
+                string[] pairs = o.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach (string s in pairs)
+                {
+                    Match m = re.Match(s);
+                    if (!m.Success)
+                    {
+                        
+                    }
+                    else if (options.ContainsKey(m.Groups[1].Value))
+                    {
+                        options[m.Groups[1].Value] = m.Groups[2].Value;
+                    }
+                    else
+                    {
+                        options.Add(m.Groups[1].Value, m.Groups[2].Value);
+                    }
+                }
+                return options;
+            }
+            var search_params = Parse(q).Select(kvp => kvp.Key + ":exact=" + kvp.Value).ToArray();
+            return await SearchPatients(search_params);
+        }
         #endregion
 
         #region Fields

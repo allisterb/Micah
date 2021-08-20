@@ -42,6 +42,9 @@ namespace Micah.CLI
     {
         [Option('t', "text", Required = true, HelpText = "The text to understand.")]
         public string Text { get; set; }
+
+        [Option('q', "query", Required = false, HelpText = "Interpret the utterance as a FHIR query.")]
+        public bool Query { get; set; }
     }
 
     [Verb("asr", HelpText = "Test the speech recognition feature of Micah with the default mic as the input source.")]
