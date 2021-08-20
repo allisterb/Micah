@@ -36,78 +36,69 @@
 </div>
 
 <div class="step slide" data-rel-x="0" data-rel-y="900">
-    <h1>Natural Language Database Interface</h1>
-    <p class="substep fly-in fly-out">Embodied virtual assistant for clinicians using EHR</p>
-    <p class="substep fly-in fly-out">Improve usability of EHR systens by interfacing using natural language instead of complex GUI widgets</p>
-    <p class="substep fly-in fly-out">Micah communicates using voice, text, images, multimedia...</p>
-    <p class="substep fly-in fly-out">Deep analysis of natural language medical notes and free text to extract structured information</p>
-    <p class="substep fly-in fly-out">Query and store healthcare data in multiple FHIR stores</p>
-    <p class="substep fly-in fly-out">100% open-source</p>
+    <h1>Overview</h1>
+    <p>Embodied virtual assistant for clinicians using EHR</p>
+    <p>Improve usability of EHR systens by interfacing using natural language instead of complex GUI widgets</p>
+    <p>Micah communicates using voice, text, images, multimedia...</p>
+    <p>Deep analysis of natural language medical notes and free text to extract structured information</p>
+    <p>Query and store healthcare data in multiple FHIR stores</p>
+    <p>100% open-source</p>
 </div>
 
 <div class="step slide markdown" data-rel-x="0" data-rel-y="900">
-# Problem statement - EHR pain points
-* Too much time spent fighting EHR systems vs. spending time with patients
-* Complex, unforgiving interface actions required for querying, searching, retrieving information from EHR
-* Mode mismatch entering and querying patient data vs. conversing with patient or other staff
-* Software or interface changes or additions require retraining
-* Physician burnout... 
-* Proprietary software promotes vendor lock-in, patient data silos
-* Cost
+# Sprint 1 - Natural Language Database Interface for FHIR
+* FHIQ queries typically form-driven CRUD-style queries
+* Select resources, parameters, limits via menus
+* FHIR has many many resources, fields, bundles, parameters
+* Can we use natural language as a better interface to FHIR?
+
+</div>
+
+<div class="step slide markdown" data-rel-x="0" data-rel-y="900">
+# Sprint 1 - Natural Language Database Interface for FHIR
+## Use case 0
+* User enters a natural language query - "Find all patients named Adam limit to 10."
+* Micah translates utterance to structured query data
+* Micah executes query on FHIR server
 
 -----
-# STOP! - How to avoid medical 'Clippy'?
-* Use deterministic rule-based dialogue manager based on NLU semantic parsing
-* NLU technology is maturing rapidly
-* Models trained on knowledge graphs, not simple conversations
-* In the lab ASR approaching human-level recognition
-* It's going to happen....
+# STOP! - NLDBI is a 60-year old unsolved problem
+* General NLDBI is a long-standing industry problem
+* Many, many commercial attempts from database vendors
+* If someone finds a reliable, general way to translate natural language questions to a database language like SQL...collect $$$$$$$$$$$$$$$$$$.
+
+-----
+# STOP! - Must avoid medical 'Clippy'
+![clippy](https://pyxis.nymag.com/v1/imgs/6fa/06a/f29f0541b8cab85631e2d4c2e10d690511-31-clippy.2x.rsocial.w600.jpg)
+
+* Precision and accuracy is extremely important.
+* In a NLDBI conversational user interface, assistant must always prefer asking for clarification over uncertainty 
+* Use multiple NLU models to improve accuracy
+
+-----
+# NLDBI approacbes
+* Constrained natural language
+* Keyword-spotting
+* NLP syntactic parsing
+* Semantic parsing
+* Neural networks
+
+-----
+# Micah approach #1
+* Use Wit.ai NLU service to semantically parse sentence
+* Train model to extract entities corresponding to structured query schema
+* Execute FHIR query based on structured data
+
+-----
+# NLU Tech Demo
+
+-----
+# Micah approach #2
+* Use expert.ai NLU information to improve accuracy
+
 </div>
 
-<div class="step slide" data-rel-x="0" data-rel-y="900">
-<h1>Virtual assistants in EHR</h1>
-<div style="text-align:center">
-    <iframe width="1403" height="600" src="https://www.youtube.com/embed/Iyl2DzZqXMI" title="Virtual Assistants in EHR" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-</div>
-</div>
 
-<div class="step slide markdown" data-rel-x="0" data-rel-y="900">
-
-    # Typical use case
-    1. User logs in to Micah over the Web
-    2. Authentication via OAuth and optional biometric authentication
-    3. User selects public-facing FHIR server or uses Google Healthcare store
-    4. User queries patient records FHIR store using natural language e.g
-    * `Find Michael Parks from Manhattan`
-    * `show me all vital observations for Michael Parks since last Thursday`
-    5. Single query can potentially be sent to multiple FHIR servers
-    6. User adds notes, observations, Health & Physical Examination....
-    7. Micah extracts FHIR resources from text and stores it in designated server
-
-
-    -----
-    # Implementation - Overview
-    * Written in F# and runs on .NET and PGSQL
-    * Hosted on RedHat OpenShift Kubernetes-based PaaS
-    * NLU services:
-    * Wit.ai
-    * Google Healthcare NLU
-    * expert.ai
-    * Firely .NET FHIR libraries
-    * Connects to Google Healthcare FHIR store + public FHIR stores
-    * Can use facial and TypingDNA typing biometric authentication
-
-    -----
-    # Implementation - Security
-    * OAuth authentication using Google
-    * In-browser biometric facial recognition e.g via. Azure Face recognition
-    * In-browser biometric typing recognition via TypingDNA
-    * Google Healthcare is HIPAA compliant
-    * Google Healthcare FHIR uses OAuth authentication
-
-    -----
-    Tech Demo
-</div>
 </div>
 
 <div id="impress-toolbar"></div>

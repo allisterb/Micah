@@ -238,7 +238,13 @@ namespace Micah.CLI
                         }
 
                         if (e.name == "wit$number")
-                        { 
+                        {
+                            if (e.role == "query_limit")
+                            {
+                                string v = e.value;
+                                double c = e.confidence;
+                                Info("Query limit: {0}. Confidence: {1}.", v, c);
+                            }
                         }
 
                     }
