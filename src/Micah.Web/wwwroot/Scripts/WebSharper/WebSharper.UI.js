@@ -3463,31 +3463,44 @@
   SC$7.$cctor();
   return SC$7.BoolCheckedApply;
  };
- BindVar.ApplyValue=function(get,set,_var,el,cb)
+ BindVar.ApplyValue=function(get,set,_var)
  {
-  return[el(function(el$1)
+  var expectedValue;
+  function f(a,o)
+  {
+   return o==null?null:a(o.$0);
+  }
+  expectedValue=null;
+  return[function(el)
   {
    function onChange()
    {
     _var.UpdateMaybe(function(v)
     {
-     var m,$1;
-     m=get(el$1);
-     return m!=null&&m.$==1&&(!Unchecked.Equals(m.$0,v)&&($1=[m,m.$0],true))?$1[0]:null;
+     var $1;
+     expectedValue=get(el);
+     return expectedValue!=null&&expectedValue.$==1&&(!Unchecked.Equals(expectedValue.$0,v)&&($1=[expectedValue,expectedValue.$0],true))?$1[0]:null;
     });
    }
-   el$1.addEventListener("change",onChange);
-   el$1.addEventListener("input",onChange);
-   el$1.addEventListener("keypress",onChange);
-  }),cb(function(el$1)
+   el.addEventListener("change",onChange);
+   el.addEventListener("input",onChange);
+   el.addEventListener("keypress",onChange);
+  },function(x)
   {
-   return function(v)
+   var $1;
+   $1=set(x);
+   return function($2)
    {
-    var m,$1;
-    m=get(el$1);
-    return m!=null&&m.$==1&&(Unchecked.Equals(m.$0,v)&&($1=m.$0,true))?null:set(el$1,v);
+    return f($1,$2);
    };
-  })];
+  },View.Map(function(v)
+  {
+   var $1;
+   return expectedValue!=null&&expectedValue.$==1&&(Unchecked.Equals(expectedValue.$0,v)&&($1=expectedValue.$0,true))?null:{
+    $:1,
+    $0:v
+   };
+  },_var.get_View())];
  };
  AttrModule.ValidateForm=function()
  {
@@ -3499,64 +3512,37 @@
  };
  AttrModule.Checked=function(_var)
  {
-  var t;
-  t=(((BindVar.BoolCheckedApply())(_var))(Attrs$1.Static))(function(f)
-  {
-   return AttrModule.DynamicCustom(f,_var.get_View());
-  });
-  return AttrProxy.Append(t[0],t[1]);
+  return AttrModule.ValueWith(BindVar.BoolCheckedApply(),_var);
  };
  AttrModule.FloatValue=function(_var)
  {
-  var t;
-  t=(((BindVar.FloatApplyChecked())(_var))(Attrs$1.Static))(function(f)
-  {
-   return AttrModule.DynamicCustom(f,_var.get_View());
-  });
-  return AttrProxy.Append(t[0],t[1]);
+  return AttrModule.ValueWith(BindVar.FloatApplyChecked(),_var);
  };
  AttrModule.FloatValueUnchecked=function(_var)
  {
-  var t;
-  t=(((BindVar.FloatApplyUnchecked())(_var))(Attrs$1.Static))(function(f)
-  {
-   return AttrModule.DynamicCustom(f,_var.get_View());
-  });
-  return AttrProxy.Append(t[0],t[1]);
+  return AttrModule.ValueWith(BindVar.FloatApplyUnchecked(),_var);
  };
  AttrModule.IntValue=function(_var)
  {
-  var t;
-  t=(((BindVar.IntApplyChecked())(_var))(Attrs$1.Static))(function(f)
-  {
-   return AttrModule.DynamicCustom(f,_var.get_View());
-  });
-  return AttrProxy.Append(t[0],t[1]);
+  return AttrModule.ValueWith(BindVar.IntApplyChecked(),_var);
  };
  AttrModule.IntValueUnchecked=function(_var)
  {
-  var t;
-  t=(((BindVar.IntApplyUnchecked())(_var))(Attrs$1.Static))(function(f)
-  {
-   return AttrModule.DynamicCustom(f,_var.get_View());
-  });
-  return AttrProxy.Append(t[0],t[1]);
+  return AttrModule.ValueWith(BindVar.IntApplyUnchecked(),_var);
  };
  AttrModule.Value=function(_var)
  {
-  var t;
-  t=(((BindVar.StringApply())(_var))(Attrs$1.Static))(function(f)
-  {
-   return AttrModule.DynamicCustom(f,_var.get_View());
-  });
-  return AttrProxy.Append(t[0],t[1]);
+  return AttrModule.ValueWith(BindVar.StringApply(),_var);
  };
  AttrModule.ContentEditableHtml=function(_var)
  {
   var x;
-  x=AttrModule.CustomVar(_var,function($1,$2)
+  x=AttrModule.CustomVar(_var,function(e)
   {
-   $1.innerHTML=$2;
+   return function(v)
+   {
+    e.innerHTML=v;
+   };
   },function(e)
   {
    return{
@@ -3569,9 +3555,12 @@
  AttrModule.ContentEditableText=function(_var)
  {
   var x;
-  x=AttrModule.CustomVar(_var,function($1,$2)
+  x=AttrModule.CustomVar(_var,function(e)
   {
-   $1.textContent=$2;
+   return function(v)
+   {
+    e.textContent=v;
+   };
   },function(e)
   {
    return{
@@ -3583,9 +3572,12 @@
  };
  AttrModule.CustomValue=function(_var,toString,fromString)
  {
-  return AttrModule.CustomVar(_var,function($1,$2)
+  return AttrModule.CustomVar(_var,function(e)
   {
-   $1.value=toString($2);
+   return function(v)
+   {
+    e.value=toString(v);
+   };
   },function(e)
   {
    return fromString(e.value);
@@ -3593,12 +3585,16 @@
  };
  AttrModule.CustomVar=function(_var,set,get)
  {
-  var t;
-  t=BindVar.ApplyValue(get,set,_var,Attrs$1.Static,function(f)
+  return AttrModule.ValueWith(function(v)
   {
-   return AttrModule.DynamicCustom(f,_var.get_View());
-  });
-  return AttrProxy.Append(t[0],t[1]);
+   return BindVar.ApplyValue(get,set,v);
+  },_var);
+ };
+ AttrModule.ValueWith=function(bind,_var)
+ {
+  var p;
+  p=bind(_var);
+  return AttrProxy.Append(Attrs$1.Static(p[0]),AttrModule.DynamicCustom(p[1],p[2]));
  };
  AttrModule.DynamicProp=function(name,view)
  {
@@ -3615,6 +3611,20 @@
   return Attrs$1.Static(function(el)
   {
    el[name]=value;
+  });
+ };
+ AttrModule.DynamicBool=function(name,boolview)
+ {
+  function viewBool(el,b)
+  {
+   return b?el.setAttribute(name,""):el.removeAttribute(name);
+  }
+  return Attrs$1.Dynamic(boolview,function($1)
+  {
+   return function($2)
+   {
+    return viewBool($1,$2);
+   };
   });
  };
  AttrModule.DynamicPred=function(name,predView,valView)
@@ -3764,22 +3774,32 @@
   var g,s,g$1,s$1,g$2,s$2,g$3,s$3,g$4,s$4;
   SC$7.$cctor=Global.ignore;
   SC$7.EmptyAttr=null;
-  SC$7.BoolCheckedApply=Runtime.Curried3(function(_var,el,cb)
+  SC$7.BoolCheckedApply=function(_var)
   {
-   return[el(function(el$1)
+   function set(el,v)
    {
-    el$1.addEventListener("change",function()
+    return v!=null&&v.$==1?void(el.checked=v.$0):null;
+   }
+   return[function(el)
+   {
+    el.addEventListener("change",function()
     {
-     return!Unchecked.Equals(_var.Get(),el$1.checked)?_var.Set(el$1.checked):null;
+     return!Unchecked.Equals(_var.Get(),el.checked)?_var.Set(el.checked):null;
     });
-   }),cb(function(el$1)
+   },function($1)
    {
-    return function(v)
+    return function($2)
     {
-     el$1.checked=v;
+     return set($1,$2);
     };
-   })];
-  });
+   },View.Map(function(a)
+   {
+    return{
+     $:1,
+     $0:a
+    };
+   },_var.get_View())];
+  };
   SC$7.StringSet=function(el)
   {
    return function(s$5)
@@ -3794,10 +3814,10 @@
     $0:el.value
    };
   };
-  SC$7.StringApply=(g=BindVar.StringGet(),(s=BindVar.StringSet(),Runtime.Curried(BindVar.ApplyValue,3,[g,function($1,$2)
+  SC$7.StringApply=(g=BindVar.StringGet(),(s=BindVar.StringSet(),function(v)
   {
-   return(s($1))($2);
-  }])));
+   return BindVar.ApplyValue(g,s,v);
+  }));
   SC$7.IntSetUnchecked=function(el)
   {
    return function(i)
@@ -3817,10 +3837,10 @@
     $0:pd
    });
   };
-  SC$7.IntApplyUnchecked=(g$1=BindVar.IntGetUnchecked(),(s$1=BindVar.IntSetUnchecked(),Runtime.Curried(BindVar.ApplyValue,3,[g$1,function($1,$2)
+  SC$7.IntApplyUnchecked=(g$1=BindVar.IntGetUnchecked(),(s$1=BindVar.IntSetUnchecked(),function(v)
   {
-   return(s$1($1))($2);
-  }])));
+   return BindVar.ApplyValue(g$1,s$1,v);
+  }));
   SC$7.IntSetChecked=function(el)
   {
    return function(i)
@@ -3861,10 +3881,10 @@
     }))
    };
   };
-  SC$7.IntApplyChecked=(g$2=BindVar.IntGetChecked(),(s$2=BindVar.IntSetChecked(),Runtime.Curried(BindVar.ApplyValue,3,[g$2,function($1,$2)
+  SC$7.IntApplyChecked=(g$2=BindVar.IntGetChecked(),(s$2=BindVar.IntSetChecked(),function(v)
   {
-   return(s$2($1))($2);
-  }])));
+   return BindVar.ApplyValue(g$2,s$2,v);
+  }));
   SC$7.FloatSetUnchecked=function(el)
   {
    return function(i)
@@ -3884,10 +3904,10 @@
     $0:pd
    });
   };
-  SC$7.FloatApplyUnchecked=(g$3=BindVar.FloatGetUnchecked(),(s$3=BindVar.FloatSetUnchecked(),Runtime.Curried(BindVar.ApplyValue,3,[g$3,function($1,$2)
+  SC$7.FloatApplyUnchecked=(g$3=BindVar.FloatGetUnchecked(),(s$3=BindVar.FloatSetUnchecked(),function(v)
   {
-   return(s$3($1))($2);
-  }])));
+   return BindVar.ApplyValue(g$3,s$3,v);
+  }));
   SC$7.FloatSetChecked=function(el)
   {
    return function(i)
@@ -3919,10 +3939,10 @@
     }))
    };
   };
-  SC$7.FloatApplyChecked=(g$4=BindVar.FloatGetChecked(),(s$4=BindVar.FloatSetChecked(),Runtime.Curried(BindVar.ApplyValue,3,[g$4,function($1,$2)
+  SC$7.FloatApplyChecked=(g$4=BindVar.FloatGetChecked(),(s$4=BindVar.FloatSetChecked(),function(v)
   {
-   return(s$4($1))($2);
-  }])));
+   return BindVar.ApplyValue(g$4,s$4,v);
+  }));
  };
  Settings.BatchUpdatesEnabled=function()
  {

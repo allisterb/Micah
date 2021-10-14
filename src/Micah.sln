@@ -37,6 +37,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{23088194-177E-4BFB-81EB-129D396B622F}"
 	ProjectSection(SolutionItems) = preProject
 		..\deploy\SQL\DDL_CREATE_DB_micah.sql = ..\deploy\SQL\DDL_CREATE_DB_micah.sql
+		..\deploy\SQL\DDL_CREATE_TABLE_micah.config.sql = ..\deploy\SQL\DDL_CREATE_TABLE_micah.config.sql
 		..\deploy\SQL\DDL_CREATE_TABLE_micah.messages.sql = ..\deploy\SQL\DDL_CREATE_TABLE_micah.messages.sql
 		..\deploy\SQL\DDL_CREATE_TABLE_micah_user.sql = ..\deploy\SQL\DDL_CREATE_TABLE_micah_user.sql
 		..\deploy\SQL\DDL_CREATE_USER_micah.sql = ..\deploy\SQL\DDL_CREATE_USER_micah.sql

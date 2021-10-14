@@ -1,7 +1,7 @@
 (function(Global)
 {
  "use strict";
- var WebSharper,Sitelets,CorsAllows,StringEncoding,PathUtil,Route,List,Router,Obj,RouterModule,ListArrayConverter,RouterOperators,SC$1,Strings,String,List$1,Seq,Collections,Map,Arrays,IntelliFactory,Runtime,FSharpMap,Unchecked,Utils,console,Lazy,Nullable,Numeric,Operators,Concurrency,$,Char,System,Guid,Slice;
+ var WebSharper,Sitelets,CorsAllows,StringEncoding,PathUtil,Route,List,Router,Obj,RouterModule,ListArrayConverter,RouterOperators,SC$1,Strings,String,List$1,Seq,Collections,Map,Arrays,IntelliFactory,Runtime,FSharpMap,Unchecked,Utils,console,Lazy,Nullable,Numeric,Operators,Concurrency,Char,System,Guid,Slice;
  WebSharper=Global.WebSharper=Global.WebSharper||{};
  Sitelets=WebSharper.Sitelets=WebSharper.Sitelets||{};
  CorsAllows=Sitelets.CorsAllows=Sitelets.CorsAllows||{};
@@ -33,7 +33,6 @@
  Numeric=WebSharper&&WebSharper.Numeric;
  Operators=WebSharper&&WebSharper.Operators;
  Concurrency=WebSharper&&WebSharper.Concurrency;
- $=Global.jQuery;
  Char=WebSharper&&WebSharper.Char;
  System=Global.System;
  Guid=System&&System.Guid;
@@ -800,32 +799,49 @@
    return fd.append(k,v);
   },path.FormData),options$1.body=fd):void 0:options$1.body=m$1,url=path.ToLink(),self.fetch(baseUrl==null?url:Strings.TrimEnd(baseUrl.$0,["/"])+url,options$1))):Operators.FailWith("Failed to map endpoint to request");
  };
- RouterModule.Ajax=function(router,endpoint)
+ RouterModule.XHR=function(router,endpoint)
  {
-  return RouterModule.AjaxWith({},router,endpoint);
+  return RouterModule.XHRWith({
+   ResponseT:"text",
+   Url:"",
+   IsAsync:true,
+   Username:"",
+   Password:"",
+   Timeout:0,
+   WithCredentials:false
+  },router,endpoint);
  };
- RouterModule.AjaxWith=function(settings,router,endpoint)
+ RouterModule.XHRWith=function(conf,router,endpoint)
  {
-  var settings$1,m,path,m$1,m$2,fd;
-  settings$1=settings?settings:{};
+  var xhr,m,path,method,m$1;
+  xhr=new Global.XMLHttpRequest();
   m=RouterModule.Write(router,endpoint);
-  return m!=null&&m.$==1?(path=m.$0,(settings$1.dataType===void 0?settings$1.dataType="text":void 0,settings$1.type=(m$1=path.Method,m$1==null?"POST":m$1.$0),m$2=path.Body.f(),m$2===null?!path.FormData.get_IsEmpty()?(fd=new Global.FormData(),Map.Iterate(function(k,v)
+  return m!=null&&m.$==1?(path=m.$0,(conf.ResponseT===void 0?conf.ResponseT="text":void 0,method=(m$1=path.Method,m$1==null?"POST":m$1.$0),Concurrency.FromContinuations(function(ok,err)
   {
-   return fd.append(k,v);
-  },path.FormData),settings$1.contentType=false,settings$1.data=fd,settings$1.processData=false):void 0:(settings$1.contentType="application/json",settings$1.data=m$2,settings$1.processData=false),Concurrency.FromContinuations(function(ok,err)
-  {
-   var url;
-   settings$1.success=function(res)
+   var url,m$2,fd;
+   xhr.onload=function()
    {
-    return ok(res);
+    return ok(xhr.response);
    };
-   settings$1.error=function(a,a$1,msg)
+   xhr.onerror=function()
    {
-    return err(new Global.Error(msg));
+    return err(new Global.Error(xhr.statusText));
    };
    url=path.ToLink();
-   settings$1.url=settings$1.url?Strings.TrimEnd(settings$1.url,["/"])+url:url;
-   $.ajax(settings$1);
+   conf.Url=conf.Url?Strings.TrimEnd(conf.Url,["/"])+url:url;
+   if(conf.Username!==""&&conf.Password!=="")
+    xhr.open(method,conf.Url,conf.IsAsync,conf.Username,conf.Password);
+   else
+    xhr.open(method,conf.Url,conf.IsAsync);
+   if(conf.Timeout!==0)
+    xhr.timeout=conf.Timeout;
+   if(conf.WithCredentials)
+    xhr.withCredentials=conf.WithCredentials;
+   m$2=path.Body.f();
+   return m$2===null?!path.FormData.get_IsEmpty()?(fd=new Global.FormData(),(Map.Iterate(function(k,v)
+   {
+    return fd.append(k,v);
+   },path.FormData),xhr.send(fd))):xhr.send():xhr.send(m$2);
   }))):Operators.FailWith("Failed to map endpoint to request");
  };
  RouterModule.Link=function(router,endpoint)

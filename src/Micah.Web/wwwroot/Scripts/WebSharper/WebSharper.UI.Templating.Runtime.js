@@ -1,7 +1,7 @@
 (function(Global)
 {
  "use strict";
- var WebSharper,UI,Templating,Runtime,Server,TemplateInitializer,Obj,TemplateInstances,Handler,ProviderBuilder,TemplateInstance,Client,Collections,Dictionary,IntelliFactory,Runtime$1,Arrays,Unchecked,Var$1,Operators,Doc,Client$1,Templates,Slice,BindVar,View,console,Activator,HashSet,Enumerator,Seq,System,Guid;
+ var WebSharper,UI,Templating,Runtime,Server,TemplateInitializer,Obj,TemplateInstances,Handler,ProviderBuilder,TemplateInstance,Client,Collections,Dictionary,IntelliFactory,Runtime$1,Arrays,Unchecked,Var$1,Operators,Doc,Client$1,Templates,Slice,BindVar,console,View,Activator,HashSet,Enumerator,Seq,System,Guid;
  WebSharper=Global.WebSharper=Global.WebSharper||{};
  UI=WebSharper.UI=WebSharper.UI||{};
  Templating=UI.Templating=UI.Templating||{};
@@ -27,8 +27,8 @@
  Templates=Client$1&&Client$1.Templates;
  Slice=WebSharper&&WebSharper.Slice;
  BindVar=UI&&UI.BindVar;
- View=UI&&UI.View;
  console=Global.console;
+ View=UI&&UI.View;
  Activator=WebSharper&&WebSharper.Activator;
  HashSet=Collections&&Collections.HashSet;
  Enumerator=WebSharper&&WebSharper.Enumerator;
@@ -121,74 +121,40 @@
  },Obj,TemplateInitializer);
  TemplateInitializer.applyVarHole=function(el,tpl)
  {
-  var $1,v,v$1,v$2,v$3,v$4,v$5;
+  var $1;
   TemplateInitializer.$cctor();
   switch(tpl.$==9?1:tpl.$==10?2:tpl.$==11?3:tpl.$==12?4:tpl.$==13?5:tpl.$==0?($1=tpl.$0,6):tpl.$==1?($1=tpl.$0,6):tpl.$==2?($1=tpl.$0,6):tpl.$==14?($1=tpl.$0,6):tpl.$==4?($1=tpl.$0,6):tpl.$==5?($1=tpl.$0,6):tpl.$==6?($1=tpl.$0,6):tpl.$==7?($1=tpl.$0,6):tpl.$==3?($1=tpl.$0,6):0)
   {
    case 0:
-    v=tpl.$1;
-    (((BindVar.StringApply())(v))(function(f)
-    {
-     f(el);
-    }))(function(f)
-    {
-     View.Sink(f(el),v.get_View());
-    });
+    TemplateInitializer.applyTypedVarHole(BindVar.StringApply(),tpl.$1,el);
     break;
    case 1:
-    v$1=tpl.$1;
-    (((BindVar.BoolCheckedApply())(v$1))(function(f)
-    {
-     f(el);
-    }))(function(f)
-    {
-     View.Sink(f(el),v$1.get_View());
-    });
+    TemplateInitializer.applyTypedVarHole(BindVar.BoolCheckedApply(),tpl.$1,el);
     break;
    case 2:
-    v$2=tpl.$1;
-    (((BindVar.IntApplyChecked())(v$2))(function(f)
-    {
-     f(el);
-    }))(function(f)
-    {
-     View.Sink(f(el),v$2.get_View());
-    });
+    TemplateInitializer.applyTypedVarHole(BindVar.IntApplyChecked(),tpl.$1,el);
     break;
    case 3:
-    v$3=tpl.$1;
-    (((BindVar.IntApplyUnchecked())(v$3))(function(f)
-    {
-     f(el);
-    }))(function(f)
-    {
-     View.Sink(f(el),v$3.get_View());
-    });
+    TemplateInitializer.applyTypedVarHole(BindVar.IntApplyUnchecked(),tpl.$1,el);
     break;
    case 4:
-    v$4=tpl.$1;
-    (((BindVar.FloatApplyChecked())(v$4))(function(f)
-    {
-     f(el);
-    }))(function(f)
-    {
-     View.Sink(f(el),v$4.get_View());
-    });
+    TemplateInitializer.applyTypedVarHole(BindVar.FloatApplyChecked(),tpl.$1,el);
     break;
    case 5:
-    v$5=tpl.$1;
-    (((BindVar.FloatApplyUnchecked())(v$5))(function(f)
-    {
-     f(el);
-    }))(function(f)
-    {
-     View.Sink(f(el),v$5.get_View());
-    });
+    TemplateInitializer.applyTypedVarHole(BindVar.FloatApplyUnchecked(),tpl.$1,el);
     break;
    case 6:
     console.warn("Not a var hole: ",$1);
     break;
   }
+ };
+ TemplateInitializer.applyTypedVarHole=function(bind,v,el)
+ {
+  var p;
+  TemplateInitializer.$cctor();
+  p=bind(v);
+  p[0](el);
+  View.Sink(p[1](el),p[2]);
  };
  TemplateInitializer.GetOrAddHoleFor=function(id,holeName,initHole)
  {
@@ -245,7 +211,7 @@
  {
   Obj.New.call(this);
  },TemplateInstances);
- Handler.EventQ2$184$36=function(key,f)
+ Handler.EventQ2$189$36=function(key,f)
  {
   return function(el)
   {
